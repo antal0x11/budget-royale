@@ -1,0 +1,49 @@
+/*
+	Styles for Expenses Card.
+*/
+
+.card {
+	display: grid;
+	justify-content: center;
+	width: fit-content;
+	height: fit-content;
+	border: 2px solid black;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #C2A9EB;
+}
+
+.item {
+	margin: 5px;
+	width: fit-content;
+	height: fit-content;
+	padding: 5px;
+	text-align: center;
+	justify-self: center;
+	font-size: 20px;
+}
+
+.item:first-child {
+	margin: 5px;
+	width: fit-content;
+	height: fit-content;
+	padding: 5px;
+	text-align: center;
+	justify-self: right;
+	font-size: 22px;
+	font-weight: bold;
+	border-bottom: 2px solid #111;
+}
+
+.item:nth-child(2):hover {
+	font-size: 22px;
+}
+
+.deleteItem {
+	width: 26px;
+	height: 26px;
+	justify-self: right;
+}
+.deleteItem:hover {
+	cursor: pointer;
+}

@@ -1,0 +1,17 @@
+/*
+    Styles for Top Side Title
+*/
+
+.top{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-top: 0;
+    width: 100vw;
+    height: 70px;
+    text-align: center;
+    font-size: 24px;
+    background-color: #333;
+    color: white;
+}
