@@ -10,6 +10,7 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
+    background-color: #FDFEFE;
 }
 
 .inputBoxN {
@@ -18,10 +19,11 @@
     border-radius: 5px;
     margin: 5px;
     resize: none;
+    outline-color: black;
 }
 
 .inputBoxN:focus {
-    outline: none;
+    outline-color: black;
 }
 
 .btn {

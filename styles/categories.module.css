@@ -20,17 +20,17 @@
 
 .subContainer input {
     height: 23px;
-    padding: 4px;
+    padding: 8px;
     width: 310px;
     font-size: 18px;
     border: 0px solid black;
-    border-bottom: 2px solid #333;
+    border-radius: 5px;
     margin-left: 4px;
     margin-right: 4px;
 }
 
 .subContainer input:focus {
-    outline: none;
+    outline-color: black;
 }
 
 .subContainer button {
