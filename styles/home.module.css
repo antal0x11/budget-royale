@@ -9,4 +9,69 @@
     margin: 20px;
     justify-content: space-evenly;
     align-items: center;
+    margin: 0;
+}
+
+/* .container div:nth-last-of-type(1) {
+    flex: 2;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.container div:nth-last-of-type(2) {
+    flex: 1;
+    height: 100vh;
+    overflow-y: scroll;
+    margin: 0;
+} */
+
+.mainContainerItemsLeft {
+    flex: 1;
+    height: 100vh;
+    overflow-y: scroll;
+    border: 2px solid black;
+}
+
+.mainContainerItemsRight {
+    flex: 2;
+    height: 100vh;
+    overflow-y: scroll;
+    border: 2px solid black;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 1;
+    flex-basis: 100%;
+}
+
+.infoContainerItemMain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    flex: 1;
+    flex-basis: 100%;
+}
+
+.infoContainerItemMain svg {
+    width: 36px;
+    height: 36px;
+}
+
+.infoContainerItemMain svg:hover {
+    cursor: pointer;
 }

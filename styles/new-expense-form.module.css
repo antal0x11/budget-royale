@@ -9,7 +9,7 @@
     border: 2px solid #333;
     border-radius: 5px;
     padding: 10px;
-
+    margin: 10px;
 }
 
 .inputBoxN {
@@ -24,6 +24,14 @@
     outline: none;
 }
 
+.btn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .inputSubmit {
     justify-self: center;
     font-size: 18px;
@@ -36,6 +44,23 @@
 }
 
 .inputSubmit:hover {
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+}
+
+.cancelBtn {
+    justify-self: center;
+    font-size: 18px;
+    padding: 8px;
+    text-align: center;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.cancelBtn:hover {
     cursor: pointer;
     background-color: #333;
     color: white;
