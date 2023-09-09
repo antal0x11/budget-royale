@@ -36,19 +36,19 @@ export default function Home() {
                     </svg>
 
                   </div>
-                  {addExpense && <div><NewExpense /></div>}
+                  {addExpense && <div><NewExpense cancel={[addExpense,setAddExpense]}/></div>}
                 </div>
                 <div className={styles.cardContainer}>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
+                  {/* <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
                   <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
-                  <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
-                  <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>
+                  <div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div> */}
                 </div>
             </div>
         </div>
