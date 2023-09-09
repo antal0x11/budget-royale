@@ -20,6 +20,7 @@
     margin: 5px;
     resize: none;
     outline-color: black;
+    border: 2px solid black;
 }
 
 .inputBoxN:focus {
