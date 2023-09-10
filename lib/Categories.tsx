@@ -1,11 +1,14 @@
 import styles from "@/styles/categories.module.css";
 import { CategoryItem } from "./ComponentTypes/ExpensesTypes";
+import { Notification, NotificationCommand, ExpensesObject } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
+import DataContext from "./DataContext";
 
 
 function CategoryItem(props : CategoryItem) {
 
     const titleBlock = React.useRef(null);
+    const [items,deleteItems] = props.deleteCategoryItem!;
 
     const colors = {
         paleBlue : "#97BBE5",
@@ -15,6 +18,10 @@ function CategoryItem(props : CategoryItem) {
         palePink: "#E597C6",
         cyan: "#B2E4E1"
     };
+
+    const handleDeleteItem = () => {
+        deleteItems(items?.filter(element => element.title !== props.title));
+    }
 
     return (
         <li className={styles.categoryItemBlock}>
@@ -33,10 +40,33 @@ function CategoryItem(props : CategoryItem) {
                         onClick={() => {titleBlock.current.style.backgroundColor = colors.palePink;}}></button>
                     <button className={styles.colorBtn} style={{backgroundColor: `${colors.cyan}`}} 
                         onClick={() => {titleBlock.current.style.backgroundColor = colors.cyan;}}></button>
+                    <div className={styles.deleteCategoryItem} onClick={handleDeleteItem}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                    </div>
                 </div>
             </div>
         </li>
     )
+}
+
+function notificationReducer(state : Notification, action : NotificationCommand) : Notification {
+
+    switch(action.type) {
+        case "empty":
+                return {
+                    msg : "Category Input field is empty!",
+                    display: true
+                }
+        case "duplicate":
+                return {
+                    msg: "A record with the same category already exists.",
+                    display: true
+                }
+        default:
+                return {...state, display : false};
+    }
 }
 
 export default function Categories() {
@@ -45,24 +75,42 @@ export default function Categories() {
     const defaultColor : string = "#97BBE5";
     const [currentInput, setCurrentInput] = React.useState<string>("");
     const inputElement = React.useRef(null);
+    const [notificationState, dispatchNotification] = React.useReducer(notificationReducer, { msg: "none", display: false});
+    const { data,updateData } = React.useContext(DataContext)!;
 
     function handleAddCategoryItem () {
 
-        /*  
-            TODO:   - add notification for when an item already exists
-                    - add notification for when input box is empty
-        */
+        if (currentInput.length === 0 || currentInput === " ") {
+            dispatchNotification({type : "empty"});
+            setCurrentInput("");
+            return;
+        }
 
-        const tmp : CategoryItem = {
-            title : currentInput,
-            color: defaultColor
-        };
+        /**
+         * duplicate check is not case sensitive
+         */
+        if (categoryList.find((element) => element.title === currentInput) !== undefined ) {
+            dispatchNotification({type : "duplicate"});
+            setCurrentInput("");
+            return;
+        }
 
-        setCategoryList(prev => [...prev,tmp]);
+        setCategoryList(prev => [...prev,{title: currentInput, color: defaultColor}]);
+
+        /**
+         * ADD Category central
+         */
+        updateData({ type : "updateData/addNewCategory"},{title: currentInput, color: defaultColor});
+        
         inputElement.current.value = "";
+        setCurrentInput("");
     }
     
     function handleInput(e : React.ChangeEvent<HTMLInputElement>) {
+        if (notificationState.display) {
+            dispatchNotification({type : "off"});
+        }
+        
         setCurrentInput(e.target.value);
     }
 
@@ -71,12 +119,17 @@ export default function Categories() {
             <h2>Categories</h2>
             <div className={styles.subContainer}>
                 <input ref={inputElement} type={"text"} placeholder={"Add New Category"} onInput={handleInput}/>
-                <button className={styles.addCategory} onClick={handleAddCategoryItem}>Add Category</button>
+                <button className={styles.addCategory} onClick={handleAddCategoryItem} >Add Category</button>
+                {notificationState.display && 
+                    <div className={styles.notificationContainer}>
+                        <p>{notificationState.msg}</p>
+                    </div>
+                }
                 {categoryList.length !== 0 && 
                     <ul className={styles.categoriesMenu}>
                         {
-                            categoryList.map( (item : CategoryItem, index : number) => {
-                                return <CategoryItem key={index} title={item.title} color={item.color}/>
+                            categoryList!.map( (item : CategoryItem, index : number) => {
+                                return <CategoryItem key={index} title={item.title} color={item.color} deleteCategoryItem={[categoryList,setCategoryList]}/>
                             }) 
                         }
                     </ul>

@@ -113,3 +113,24 @@
     color: black;
     width: 100%;
 }
+
+.notificationContainer {
+    background-color: white;
+    width: 100%;
+    height: fit-content;
+    padding: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.notificationContainer p {
+    color: red;
+}
+
+.deleteCategoryItem {
+    width: 26px;
+	height: 26px;
+    margin-top: 2px;
+}

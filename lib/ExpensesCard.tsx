@@ -1,7 +1,7 @@
-import ExpensesCardTypes from "@/lib/ComponentTypes/ExpensesCardTypes";
 import styles from "@/styles/expenses-card.module.css";
+import { ExpensesCardProps } from "./ComponentTypes/ExpensesTypes";
 
-export default function ExpensesCard(props : ExpensesCardTypes) {
+export default function ExpensesCard(props : ExpensesCardProps) {
 	return (
 		<div className={styles.card}>
 			<div className={styles.item}>{props.date}</div>
