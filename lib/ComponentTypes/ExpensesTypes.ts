@@ -1,4 +1,3 @@
-import * as React from "react";
 
 export interface ExpensesCardProps {
 	title: string;
@@ -10,7 +9,7 @@ export interface ExpensesCardProps {
 export interface CategoryItem {
 	title: string;
 	color: string;
-	deleteCategoryItem? : ReturnType<typeof React.useState<CategoryItem [] | undefined>>;
+	active: boolean;
 }
 
 export interface ExpenseValue {
@@ -38,5 +37,5 @@ export interface ExpensesObject {
 
 export interface DataContextType {
     data : ExpensesObject[];
-    updateData : (action : ActionOptions, newCat?: CategoryItem, newCard? : ExpensesCardProps) => void;
+    updateData : (action : ActionOptions, newCat?: CategoryItem | null, newCard? : ExpensesCardProps | null) => void;
 }

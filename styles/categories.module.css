@@ -21,9 +21,9 @@
 .subContainer input {
     height: 23px;
     padding: 8px;
-    width: 310px;
+    width: 300px;
     font-size: 18px;
-    border: 0px solid black;
+    border: 2px solid #2E86C1;
     border-radius: 5px;
     margin-left: 4px;
     margin-right: 4px;
@@ -31,22 +31,22 @@
 }
 
 .subContainer input:focus {
-    outline-color: black;
+    outline-color: #2E86C1;
 }
 
 .addCategory {
     height: fit-content;
-    padding: 5px;
-    font-size: 18px;
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-    border-radius: 4px;
+    padding: 12px;
+    font-size: 17px;
+    color: white;
+    border: 0px solid black;
+    border-radius: 14px;
+    background-color: #AED6F1;
 }
 
 .addCategory:hover {
     cursor: pointer;
-    background-color: #333;
+    background-color: #2E86C1;
     color: white;
 }
 
@@ -83,11 +83,11 @@
     flex: 1;
     text-align: center;
     padding: 10px 10px;
+    border-radius: 15px;
 }
 
 .miniContainerExpenseCategorie:hover {
-    background-color: #333;
-    color: white;
+    box-shadow: 5px 5px 5px lightgray;
 }
 
 .miniContainerColorPallete {

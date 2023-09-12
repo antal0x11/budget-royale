@@ -1,6 +1,7 @@
 import styles from "@/styles/new-expense-form.module.css";
 import { NewExpense } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
+import DataContext from "./DataContext";
 
 export default function NewExpense(props : NewExpense) {
 
@@ -10,10 +11,12 @@ export default function NewExpense(props : NewExpense) {
     const [cost, setCost] = React.useState("");
     const [comments, setComments] = React.useState("");
 
-    const titleRef = React.useRef(null);
-    const dateRef = React.useRef(null);
-    const costRef = React.useRef(null);
-    const commentsRef = React.useRef(null);
+    const titleRef = React.useRef<HTMLInputElement>(null);
+    const dateRef = React.useRef<HTMLInputElement>(null);
+    const costRef = React.useRef<HTMLInputElement>(null);
+    const commentsRef = React.useRef<HTMLTextAreaElement>(null);
+
+    const { updateData } = React.useContext(DataContext)!;
 
     /*
         TODO: 
@@ -43,11 +46,15 @@ export default function NewExpense(props : NewExpense) {
     function handleSubmit(e : React.FormEvent) {
         e.preventDefault();
 
-        console.log(title + " " + date + " " + cost + " " + comments); 
-        titleRef.current.value = "";
-        dateRef.current.value = "";
-        costRef.current.value = "";
-        commentsRef.current.value = "";
+        /**
+         * TODO: FIX parameters
+         */
+        updateData({type : "updateData/addExpense"}, null, { title: title, date: date, cost: parseInt(cost), comments: comments})
+
+        titleRef.current!.value = "";
+        dateRef.current!.value = "";
+        costRef.current!.value = "";
+        commentsRef.current!.value = "";
     }
 
     return (
