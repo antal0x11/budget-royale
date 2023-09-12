@@ -9,14 +9,14 @@ import Categories from "@/lib/Categories";
 
 import * as React from "react";
 import DataContext from "@/lib/DataContext";
-import { CategoryItem, ExpensesObject, ExpensesCardProps } from "@/lib/ComponentTypes/ExpensesTypes";
+import { CategoryItem, ExpensesObject, ExpensesCardProps, ActionOptions } from "@/lib/ComponentTypes/ExpensesTypes";
 
 export default function Home() {
 
   const [addExpense,setAddExpense] = React.useState<boolean>(false);
   const [data,setData] = React.useState<ExpensesObject []>([]);
 
-  function updateData(action : any, newCat?: CategoryItem, newCard? : ExpensesCardProps) {
+  function updateData(action : ActionOptions, newCat?: CategoryItem, newCard? : ExpensesCardProps) : void {
     switch(action.type) {
       case "updateData/addNewCategory":
 
@@ -33,7 +33,7 @@ export default function Home() {
     }
   }
 
-  function handleAddExpense(e: React.MouseEventHandler<SVGSVGElement>) {
+  function updateAddExpense() : void {
     setAddExpense(addExpense ? false : true);
   }
 
@@ -57,12 +57,12 @@ export default function Home() {
                   <div className={styles.infoContainer}>
                     <div className={styles.infoContainerItemMain}>
                       <MainSubTitle />
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={handleAddExpense}>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={updateAddExpense}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
 
                     </div>
-                    {addExpense && <div><NewExpense cancel={[addExpense,setAddExpense]}/></div>}
+                    {addExpense && <div><NewExpense value={{addExpense,updateAddExpense}}/></div>}
                   </div>
                   <div className={styles.cardContainer}>
                     {/*<div className={styles.cardContainerItem}><ExpensesCard title={"Harry Potter"} cost={12} date={"01/02/2022"} comments={"Have to buy this book for a gift."}/></div>

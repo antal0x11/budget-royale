@@ -1,6 +1,6 @@
 import styles from "@/styles/categories.module.css";
 import { CategoryItem } from "./ComponentTypes/ExpensesTypes";
-import { Notification, NotificationCommand, ExpensesObject } from "./ComponentTypes/ExpensesTypes";
+import { Notification, ActionOptions, ExpensesObject } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
 import DataContext from "./DataContext";
 
@@ -51,15 +51,15 @@ function CategoryItem(props : CategoryItem) {
     )
 }
 
-function notificationReducer(state : Notification, action : NotificationCommand) : Notification {
+function notificationReducer(state : Notification, action : ActionOptions) : Notification {
 
     switch(action.type) {
-        case "empty":
+        case "notification/empty":
                 return {
                     msg : "Category Input field is empty!",
                     display: true
                 }
-        case "duplicate":
+        case "notification/duplicate":
                 return {
                     msg: "A record with the same category already exists.",
                     display: true
@@ -81,7 +81,7 @@ export default function Categories() {
     function handleAddCategoryItem () {
 
         if (currentInput.length === 0 || currentInput === " ") {
-            dispatchNotification({type : "empty"});
+            dispatchNotification({type : "notification/empty"});
             setCurrentInput("");
             return;
         }
@@ -90,7 +90,7 @@ export default function Categories() {
          * duplicate check is not case sensitive
          */
         if (categoryList.find((element) => element.title === currentInput) !== undefined ) {
-            dispatchNotification({type : "duplicate"});
+            dispatchNotification({type : "notification/duplicate"});
             setCurrentInput("");
             return;
         }

@@ -4,7 +4,7 @@ import * as React from "react";
 
 export default function NewExpense(props : NewExpense) {
 
-    const [add, setAdd] = props.cancel;
+    const { updateAddExpense } = props.value;
     const [title, setTitle] = React.useState("");
     const [date, setDate] = React.useState("");
     const [cost, setCost] = React.useState("");
@@ -70,7 +70,7 @@ export default function NewExpense(props : NewExpense) {
                 
                 <div className={styles.btn}>
                     <input className={styles.inputSubmit} type={"submit"} value={"Add Expense"} />
-                    <button className={styles.cancelBtn} onClick={() => setAdd(false)}>Cancel</button>
+                    <button className={styles.cancelBtn} onClick={() => updateAddExpense()}>Cancel</button>
                 </div>
             </form>
         )

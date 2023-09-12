@@ -13,8 +13,13 @@ export interface CategoryItem {
 	deleteCategoryItem? : ReturnType<typeof React.useState<CategoryItem [] | undefined>>;
 }
 
+export interface ExpenseValue {
+	addExpense?: boolean;
+	updateAddExpense : () => void
+}
+
 export interface NewExpense {
-	cancel : ReturnType<typeof React.useState<boolean>>
+	value : ExpenseValue;
 }
 
 export interface Notification {
@@ -22,7 +27,7 @@ export interface Notification {
 	display : boolean;
 }
 
-export interface NotificationCommand {
+export interface ActionOptions {
 	type : string;
 }
 
@@ -33,5 +38,5 @@ export interface ExpensesObject {
 
 export interface DataContextType {
     data : ExpensesObject[];
-    updateData : (action : any, newCat?: CategoryItem, newCard? : ExpensesCardProps) => void;
+    updateData : (action : ActionOptions, newCat?: CategoryItem, newCard? : ExpensesCardProps) => void;
 }
