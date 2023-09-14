@@ -46,19 +46,16 @@ export default function NewExpense(props : NewExpense) {
     function handleSubmit(e : React.FormEvent) {
         e.preventDefault();
 
-        /**
-         * TODO: FIX parameters
-         */
         updateData({type : "updateData/addExpense"}, null, { title: title, date: date, cost: parseInt(cost), comments: comments})
 
         titleRef.current!.value = "";
         dateRef.current!.value = "";
         costRef.current!.value = "";
-        commentsRef.current!.value = "";
+        // commentsRef.current!.value = "";
     }
 
     return (
-            <form className={styles.addItem} action={"#"} method={"POST"} onSubmit={handleSubmit} >
+            <div className={styles.addItem} >
                 <label htmlFor={"title"}>Title: </label>
                 <input ref={titleRef} className={styles.inputBoxN} id={"title"} type={"text"} name={"title"} placeholder={"Name your expense"} required={true} 
                     onChange={handleTitleChange}/>
@@ -68,17 +65,19 @@ export default function NewExpense(props : NewExpense) {
                     onChange={handleDateChange}/>
                 
                 <label htmlFor={"cost"}>Cost: </label>
-                <input ref={costRef} className={styles.inputBoxN} id={"cost"} type={"cost"} name={"cost"} placeholder={"Price Tag"} required={true} 
+                <input ref={costRef} className={styles.inputBoxN} id={"cost"} type={"cost"} name={"cost"} placeholder={"Price $"} required={true} 
                     onChange={handleCostChange}/>
                 
-                <label htmlFor={"comments"}>Comments: </label>
+
+                {/* Removed comment section, maybe there is no need */}
+                {/* <label htmlFor={"comments"}>Comments: </label>
                 <textarea ref={commentsRef} className={styles.inputBoxN} id={"comments"} name={"comments"} rows={4} cols={40} placeholder={"Write a comment relative to your expense"} autoComplete={"off"} 
-                        onChange={handleCommentsChange}/>
+                        onChange={handleCommentsChange}/> */}
                 
                 <div className={styles.btn}>
-                    <input className={styles.inputSubmit} type={"submit"} value={"Add Expense"} />
+                    <input className={styles.inputSubmit} type={"submit"} value={"Add Expense"} onClick={handleSubmit}/>
                     <button className={styles.cancelBtn} onClick={() => updateAddExpense()}>Cancel</button>
                 </div>
-            </form>
+            </div>
         )
     }

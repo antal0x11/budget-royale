@@ -114,7 +114,7 @@ export default function Home() {
   }
 
   return (
-      <div>
+      <>
         <Head>
           <title>Expenses Tracker</title>
         </Head>
@@ -144,6 +144,6 @@ export default function Home() {
               </div>
           </div>
         </DataContext.Provider>
-      </div>
+      </>
     )
 }

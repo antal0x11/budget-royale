@@ -3,20 +3,20 @@
 */
 
 .card {
-	display: grid;
+	display: flex;
 	justify-content: center;
 	width: fit-content;
 	height: fit-content;
 	border: 2px solid black;
 	padding: 10px;
 	border-radius: 5px;
-	background-color: #C2A9EB;
+	background-color: white;
 	margin: 5px;
 }
 
 .item {
 	margin: 5px;
-	width: fit-content;
+	width: fit-conten;
 	height: fit-content;
 	padding: 5px;
 	text-align: center;
@@ -31,20 +31,16 @@
 	padding: 5px;
 	text-align: center;
 	justify-self: right;
-	font-size: 22px;
-	font-weight: bold;
-	border-bottom: 2px solid #111;
-}
-
-.item:nth-child(2):hover {
-	font-size: 22px;
 }
 
 .deleteItem {
 	width: 26px;
 	height: 26px;
-	justify-self: right;
+	margin-top: 8px;
+	border-radius: 8px;
 }
 .deleteItem:hover {
 	cursor: pointer;
+	box-shadow: 2px 2px 2px lightgray;
+    cursor: pointer;
 }

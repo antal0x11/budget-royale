@@ -104,8 +104,9 @@
     margin: 4px;
 }
 
-.colorBtn {
+.colorBtn:hover {
     cursor: pointer;
+    box-shadow: 2px 2px 2px gray;
 }
 
 .categoryItemBlock {
@@ -133,4 +134,15 @@
     width: 26px;
 	height: 26px;
     margin-top: 2px;
+    border-radius: 8px;
+}
+
+.deleteCategoryItem:hover {
+    box-shadow: 2px 2px 2px lightgray;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 390px) {
+    /* TODO */
 }

@@ -3,28 +3,44 @@
 */
 
 .addItem {
-    display: grid;
-    width: fit-content;
+    position: absolute;
+    top: 10vh;
+    right: 40vw;
+    display: flex;
+    flex-direction: column;
+    width: 320px;
     height: fit-content;
-    border: 2px solid #333;
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    background-color: #FDFEFE;
+    color: black;
+    background-color: white;
+    z-index: 100;
+
+    animation-name: createExpenseAnimation;
+    animation-duration: 1s;
+}
+
+@keyframes createExpenseAnimation {
+    from {
+        opacity: 0%;
+    } to {
+        opacity: 100%;
+    }
 }
 
 .inputBoxN {
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 20px;
     margin: 5px;
     resize: none;
-    outline-color: black;
-    border: 2px solid black;
+    outline-color: #2E86c1;
+    border: 2px solid #2E86c1;
 }
 
 .inputBoxN:focus {
-    outline-color: black;
+    outline-color: #2E86c1;
 }
 
 .btn {
@@ -38,33 +54,34 @@
 .inputSubmit {
     justify-self: center;
     font-size: 18px;
-    padding: 8px;
+    padding: 12px;
     text-align: center;
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    border: 2px solid black;
+    background-color: #3498DB;
+    color: white;
+    border-radius: 15px;
+    border: 2px solid #2980B9;
 }
 
 .inputSubmit:hover {
     cursor: pointer;
-    background-color: #333;
+    background-color: #2980B9;
     color: white;
 }
 
 .cancelBtn {
     justify-self: center;
     font-size: 18px;
-    padding: 8px;
+    padding: 12px;
     text-align: center;
-    background-color: white;
-    color: black;
-    border-radius: 5px;
-    border: 2px solid black;
+    background-color: #F1948A;
+    color: white;
+    border-radius: 15px;
+    border: 2px solid #E74C3C;
+    width: 120px;
 }
 
 .cancelBtn:hover {
     cursor: pointer;
-    background-color: #333;
+    background-color: #E74C3C;
     color: white;
 }
