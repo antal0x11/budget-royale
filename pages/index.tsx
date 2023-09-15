@@ -127,10 +127,10 @@ export default function Home() {
               <div className={styles.mainContainerItemsRight}>
                   <div className={styles.infoContainer}>
                     <div className={styles.infoContainerItemMain}>
-                      <MainSubTitle totalCost={totalCost} selectedCategory={selectedCategory}/>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={updateAddExpense}>
+                      <MainSubTitle totalCost={totalCost} selectedCategory={selectedCategory} updateAddExpense={updateAddExpense}/>
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={updateAddExpense}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                        </svg> */}
                     </div>
                     {addExpense && <div><NewExpense value={{addExpense,updateAddExpense}}/></div>}
                   </div>

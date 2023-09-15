@@ -130,7 +130,7 @@ export default function Categories() {
 
     return (
         <div className={styles.container}>
-            <h2>Categories</h2>
+            <div className={styles.catTitle}>Categories</div>
             <div className={styles.subContainer}>
                 <input ref={inputElement} type={"text"} placeholder={"Add New Category"} onInput={handleInput}/>
                 <button className={styles.addCategory} onClick={handleAddCategoryItem} >Add Category</button>

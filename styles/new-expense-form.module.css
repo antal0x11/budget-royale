@@ -4,13 +4,14 @@
 
 .addItem {
     position: absolute;
-    top: 10vh;
+    top: 10.6vh;
     right: 40vw;
     display: flex;
     flex-direction: column;
     width: 320px;
     height: fit-content;
-    border-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     padding: 10px;
     margin: 10px;
     color: black;
@@ -84,4 +85,26 @@
     cursor: pointer;
     background-color: #E74C3C;
     color: white;
+}
+
+@media screen and (max-width: 844px) {
+    .addItem {
+        position: absolute;
+        top: 9.6vh;
+        right: 5vw;
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        height: fit-content;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+        color: black;
+        background-color: white;
+        z-index: 100;
+    
+        animation-name: createExpenseAnimation;
+        animation-duration: 1s;
+    }
 }

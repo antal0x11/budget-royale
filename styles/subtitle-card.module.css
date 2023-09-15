@@ -20,3 +20,50 @@
     background-color: #FDFEFE;
     padding: 10px;
 }
+
+.smallScreensAddblock {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.smallScreensAddblock svg {
+    margin-left:60px;
+    margin-top: 2px;
+}
+
+@media screen and (max-width: 844px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 22px;
+        border: 0px solid black;
+        width: 100vw;
+        height: fit-content;
+        margin-top: 0;
+        border-top: 0;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: #FDFEFE;
+        padding: 10px;
+    }
+
+    .smallScreensAddblock {
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .smallScreensAddblock svg {
+        margin-left:90px;
+        margin-top: 2px;
+    }
+}
