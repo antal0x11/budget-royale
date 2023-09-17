@@ -149,7 +149,6 @@ export default function Categories() {
                     </ul>
                 }
             </div>
-            <div></div>
         </div>
     )
 }

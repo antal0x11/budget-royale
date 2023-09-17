@@ -1,0 +1,85 @@
+/*
+	Styles for landing page.
+*/
+
+.pageContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	background-color: #333;
+	color: white;
+}
+
+.container {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: fit-content;
+	height: 100vh;
+}
+
+.topSection {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	/*background-image: url("/images/patternForm.svg");
+    background-repeat: repeat;
+    background-size: auto;*/
+
+	color: rgb(220, 199, 113);
+	font-size: 28px;
+	text-shadow: 4px 4px gray;
+}
+
+.middleSection {
+	width: fit-content;
+	height: fit-content;
+	margin: 0;
+	font-size: 20px;
+}
+
+.btnLinkApp {
+	width: 100px;
+	height: 30px;
+	font-size: 16px;
+	margin: 10px;
+}
+
+.btnLinkApp:hover {
+	cursor: pointer;
+}
+
+.bottomSection {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: center;
+
+}
+
+@media screen and (max-width: 844px) {
+	
+	.middleSection  pre {
+		white-space: pre-wrap;
+		margin: 15px;
+	}
+
+	.btnLinkApp {
+		width: 140px;
+		height: fit-content;
+		font-size: 24px;
+	}
+}

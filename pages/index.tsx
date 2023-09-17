@@ -1,149 +1,76 @@
-import Head from "next/head";
-import TopTitle from "@/lib/TopTitle";
-import ExpensesCard from "@/lib/ExpensesCard";
-import NewExpense from "@/lib/NewExpense";
+import Link from "next/Link";
+import Head from "next/Head";
+import Image from "next/Image";
+import { useRouter } from "next/router";
+import styles from "@/styles/intro.module.css";
 
-import styles from "@/styles/home.module.css";
-import MainSubTitle from "@/lib/MainSubTitle";
-import Categories from "@/lib/Categories";
+const information = `
+Budget Royale is a utility app that helps you 
+control, organize and manage in a better way 
+your expenses. You create categories of them 
+and set higher priorities to the important ones. 
 
-import * as React from "react";
-import DataContext from "@/lib/DataContext";
-import { CategoryItem, ExpensesObject, ExpensesCardProps, ActionOptions } from "@/lib/ComponentTypes/ExpensesTypes";
+Budget Royale is free and does not track your 
+activity. So what are you waiting for? Let's start.
+`;
 
+interface ButtonProps {
+	displayTag: string;
+	action: () => void;
+}
+
+function Button(props: ButtonProps) {
+	return (
+		<>
+			<button
+				name={"Button"}
+				className={styles.btnLinkApp}
+				onClick={props.action}
+			>
+				{props.displayTag}
+			</button>
+		</>
+	);
+}
+
+/**
+ *  Home is the component for the landing page.
+ *
+ */
 export default function Home() {
+	const router = useRouter();
 
-  const [ addExpense,setAddExpense ] = React.useState<boolean>(false);
-  const [ data,setData ] = React.useState<ExpensesObject []>([]);
-  const [ displayData,setDisplayData ] = React.useState<ExpensesCardProps []>([]);
-  const [ totalCost,setTotalCost ] = React.useState<number>(0);
-  const [ selectedCategory,setSelectedCategory ] = React.useState<string>(" - ");
+	function action(): void {
+		router.push("/expenses");
+	}
 
-  function updateData(action : ActionOptions, newCat?: CategoryItem | null, newCard? : ExpensesCardProps | null) : void {
-    switch(action.type) {
-      case "updateData/addNewCategory":
+	return (
+		<div className={styles.pageContainer}>
+			<Head>
+				<title>Budget Royale</title>
+			</Head>
+			<div className={styles.container}>
+				<section className={styles.topSection}>
+					<div>
+						<h2>Budget Royale</h2>
+					</div>
+				</section>
+				<section className={styles.middleSection}>
+					<pre>{information}</pre>
+				</section>
+				<section className={styles.bottomSection}>
+					<Button displayTag={"Go To App"} action={action} />
 
-        const tmp : ExpensesObject = {
-          category : newCat!,
-          items: []
-        }
-        setData( prev => [...prev, tmp]);
-      break;
-
-      case "updateData/deleteCategory":
-
-        /**
-         * TODO: 
-         *  if the category that we want to delete is the 
-         *  same as the selected category set to []
-         *  
-         */
-
-        setData(data.filter(element => element.category.title !== newCat!.title));  
-        setDisplayData([]);
-        setSelectedCategory(" - ")
-      break;
-
-      case "updateData/updateActiveCategory":
-        setData(data.map(element => {
-          
-            /**
-             * A unique identifier is not used at the moment
-             * so title will be used
-             * TODO: 
-             *    - add unique identifier
-             */
-            if (element.category.title === newCat?.title) {
-                if (newCat?.active === false) {
-                  setDisplayData(element.items);
-                  setSelectedCategory(newCat.title);
-                  return {...element, category : { active: true, color : newCat!.color, title : newCat!.title}};
-                } else {
-                  return {...element, category : { active: false, color : newCat!.color, title : newCat!.title}};
-                }
-            } else {
-              return element;
-            }
-        }));
-      break;
-
-      case "updateData/addExpense":
-        
-        setData(data.map(element => {
-          if (element.category.active === true) {
-
-            /**
-             * Increase total cost when adding an item.
-             */
-            setDisplayData([...element.items, newCard!]);
-
-            setTotalCost(totalCost + newCard!.cost);
-
-            return {...element, items : [...element.items, newCard!]};
-
-          } else {
-            return element;
-          }
-        }));
-      break;
-
-      case "updateData/deleteExpense":
-
-        setData(data.map(element => {
-          if (element.category.active === true) {
-
-            setDisplayData(element.items.filter(it => it.title !== newCard!.title));
-
-            /**
-             * Reduce total cost when deleting an item.
-             */
-            setTotalCost(totalCost - newCard!.cost);
-
-            return {...element, items : element.items.filter(it => it.title !== newCard!.title)};
-
-          } else {
-            return element;
-          }
-        }));
-      break;
-    }
-  }
-
-  function updateAddExpense() : void {
-    setAddExpense(addExpense ? false : true);
-  }
-
-  return (
-      <>
-        <Head>
-          <title>Expenses Tracker</title>
-        </Head>
-        <TopTitle />
-        <DataContext.Provider value={{ data,updateData }}>
-          <div className={styles.container}>
-              <div className={styles.mainContainerItemsLeft}>
-                <Categories />
-              </div>
-              <div className={styles.mainContainerItemsRight}>
-                  <div className={styles.infoContainer}>
-                    <div className={styles.infoContainerItemMain}>
-                      <MainSubTitle totalCost={totalCost} selectedCategory={selectedCategory} updateAddExpense={updateAddExpense}/>
-                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={updateAddExpense}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg> */}
-                    </div>
-                    {addExpense && <div><NewExpense value={{addExpense,updateAddExpense}}/></div>}
-                  </div>
-                  <div className={styles.cardContainer}>
-                    {displayData.length !== 0 && 
-                      displayData.map((element, index) => {
-                        return <div key={index} className={styles.cardContainerItem}><ExpensesCard title={element.title} cost={element.cost} date={element.date} comments={element.comments}/></div>
-                      })
-                    }
-                  </div>
-              </div>
-          </div>
-        </DataContext.Provider>
-      </>
-    )
+					<Link href={"https://github.com/antal0x11/my-expenses"}>
+						<Image
+							src={"/images/github-mark-white.png"}
+							width={35}
+							height={35}
+							alt={"GitHub Invertocat"}
+						/>
+					</Link>
+				</section>
+			</div>
+		</div>
+	);
 }
