@@ -3,7 +3,6 @@ export interface ExpensesCardProps {
 	title: string;
 	date: string;
 	cost: number;
-	comments?: string;
 }
 
 export interface CategoryItem {
@@ -38,4 +37,9 @@ export interface ExpensesObject {
 export interface DataContextType {
     data : ExpensesObject[];
     updateData : (action : ActionOptions, newCat?: CategoryItem | null, newCard? : ExpensesCardProps | null) => void;
+}
+
+export interface CategoryContextType {
+	categoryInfo : string;
+	updateCategoryInfo : (selectedCategory : string)  => void;
 }

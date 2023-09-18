@@ -2,7 +2,6 @@ import styles from "@/styles/subtitle-card.module.css";
 
 interface Props {
     totalCost: number;
-    selectedCategory: string;
     updateAddExpense: () => void;
 }
 
@@ -28,7 +27,6 @@ export default function MainSubTitle(props: Props) {
                     </svg>
                 </div>
             </span>
-            {/* <div>Category: {props.selectedCategory}</div> */}
         </div>
     );
 }
