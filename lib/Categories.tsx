@@ -29,6 +29,7 @@ function CategoryItem(props: CategoryItem) {
 
     function selectCategoryBlock(e: HTMLDivElement) {
         updateCategoryInfo(props.title);
+        updateData({type : "updateData/updateActiveCategory"}, props, null);
         /**
          * TODO: make visible the selected category
          */
@@ -221,6 +222,10 @@ export default function Categories() {
                 {data.length !== 0 && (
                     <ul className={styles.categoriesMenu}>
                         {data!.map((item: ExpensesObject, index: number) => {
+                            /**
+                             * Fix this issue, for some reason is undefined
+                             */
+
                             return (
                                 <CategoryItem
                                     key={index}

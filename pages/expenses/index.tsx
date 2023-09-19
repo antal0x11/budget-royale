@@ -60,36 +60,31 @@ export default function Expenses() {
         setDisplayData([]);
         break;
 
-      // case "updateData/updateActiveCategory":
-      //   setData(
-      //     data.map((element) => {
-      //       if (element.category.title === newCat?.title) {
-      //         if (newCat?.active === false) {
-      //           setDisplayData(element.items);
-      //           return {
-      //             ...element,
-      //             category: {
-      //               active: true,
-      //               color: newCat!.color,
-      //               title: newCat!.title,
-      //             },
-      //           };
-      //         } else {
-      //           return {
-      //             ...element,
-      //             category: {
-      //               active: false,
-      //               color: newCat!.color,
-      //               title: newCat!.title,
-      //             },
-      //           };
-      //         }
-      //       } else {
-      //         return element;
-      //       }
-      //     }),
-      //   );
-      //   break;
+      case "updateData/updateActiveCategory":
+        setData(
+          data.map((element) => {
+            if (element.category.title === newCat?.title) {
+              if (newCat?.active === false) {
+                setDisplayData(element.items);
+                setCategoryInfo(newCat?.title);
+                return {
+                  ...element,
+                  category: {
+                    active: true,
+                    color: newCat!.color,
+                    title: newCat!.title,
+                  },
+                };
+              }
+            } else {
+              return {
+                ...element,
+                category: { ...element.category, active: false }
+              };
+            }
+          }),
+        );
+        break;
 
       case "updateData/addExpense":
         setData(
