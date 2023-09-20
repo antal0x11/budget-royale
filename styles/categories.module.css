@@ -163,6 +163,17 @@
 
 }
 
+.backHome {
+    font-size: 22px;
+    text-decoration : none;
+    color: #333;
+    margin: 5px;
+}
+
+.backHome:hover {
+    color : #2E86C1;
+}
+
 @media screen and (max-width: 844px){
 
     

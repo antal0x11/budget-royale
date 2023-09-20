@@ -8,6 +8,7 @@ import {
 import * as React from "react";
 import DataContext from "./DataContext";
 import CategoryContext from "./CategoryContext";
+import Link from "next/Link";
 
 function CategoryItem(props: CategoryItem) {
     const titleBlock = React.useRef<HTMLDivElement>(null);
@@ -31,9 +32,6 @@ function CategoryItem(props: CategoryItem) {
     function selectCategoryBlock() {
         updateCategoryInfo(props.title);
         updateData({ type: "updateData/updateActiveCategory" }, props, null);
-        /**
-         * TODO: make visible the selected category
-         */
     }
 
     return (
@@ -203,7 +201,11 @@ export default function Categories() {
 
     return (
         <div className={styles.container}>
-            <div>Home</div>
+            <div>
+                <Link href="/" className={styles.backHome}>
+                    Home
+                </Link>
+            </div>
             <div className={styles.catTitle}>Categories</div>
             <div className={styles.subContainer}>
                 <input
