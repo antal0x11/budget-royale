@@ -149,6 +149,8 @@ export default function Categories() {
         { msg: "none", display: false },
     );
     const { data, updateData } = React.useContext(DataContext)!;
+    const { categoryInfo, updateCategoryInfo } =
+        React.useContext(CategoryContext)!;
 
     function handleAddCategoryItem() {
         if (currentInput.length === 0 || currentInput === " ") {
@@ -201,6 +203,7 @@ export default function Categories() {
 
     return (
         <div className={styles.container}>
+            <div>Home</div>
             <div className={styles.catTitle}>Categories</div>
             <div className={styles.subContainer}>
                 <input
@@ -215,6 +218,11 @@ export default function Categories() {
                 >
                     Add Category
                 </button>
+                {categoryInfo.length !== 0 && (
+                    <div className={styles.selectedCategoryBlock}>
+                        <p>{categoryInfo}</p>
+                    </div>
+                )}
                 {notificationState.display && (
                     <div className={styles.notificationContainer}>
                         <p>{notificationState.msg}</p>

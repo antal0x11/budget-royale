@@ -1,3 +1,5 @@
+import Head from "next/Head";
+
 import TopTitle from "@/lib/TopTitle";
 import ExpensesCard from "@/lib/ExpensesCard";
 import NewExpense from "@/lib/NewExpense";
@@ -38,13 +40,6 @@ export default function Expenses() {
         break;
 
       case "updateData/deleteCategory":
-        /**
-         * TODO:
-         *  if the category that we want to delete is the
-         *  same as the selected category set to []
-         *
-         */
-
         let categorySum = 0;
         data.forEach((item) => {
           if (item.category.title === newCat!.title) {
@@ -56,6 +51,7 @@ export default function Expenses() {
         setData(
           data.filter((element) => element.category.title !== newCat!.title),
         );
+        setCategoryInfo("");
         setDisplayData([]);
         break;
 
@@ -135,6 +131,9 @@ export default function Expenses() {
 
   return (
     <>
+      <Head>
+        <title>Budget Royale</title>
+      </Head>
       <TopTitle />
       <CategoryContext.Provider value={{ categoryInfo, updateCategoryInfo }}>
         <DataContext.Provider value={{ data, updateData }}>

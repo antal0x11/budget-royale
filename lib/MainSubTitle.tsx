@@ -5,6 +5,10 @@ interface Props {
     updateAddExpense: () => void;
 }
 
+/**
+ * TODO: FIX: display of cost for float cost
+ */
+
 export default function MainSubTitle(props: Props) {
     return (
         <div className={styles.container}>
