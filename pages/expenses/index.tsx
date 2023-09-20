@@ -52,7 +52,6 @@ export default function Expenses() {
           }
         });
 
-        console.log(categorySum);
         setTotalCost(totalCost - categorySum);
         setData(
           data.filter((element) => element.category.title !== newCat!.title),
@@ -64,22 +63,16 @@ export default function Expenses() {
         setData(
           data.map((element) => {
             if (element.category.title === newCat?.title) {
-              if (newCat?.active === false) {
-                setDisplayData(element.items);
+              setDisplayData(element.items);
                 setCategoryInfo(newCat?.title);
                 return {
                   ...element,
-                  category: {
-                    active: true,
-                    color: newCat!.color,
-                    title: newCat!.title,
-                  },
+                  category: { ...element.category, active: true },
                 };
-              }
             } else {
               return {
                 ...element,
-                category: { ...element.category, active: false }
+                category: { ...element.category, active: false },
               };
             }
           }),

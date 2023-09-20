@@ -12,7 +12,8 @@ import CategoryContext from "./CategoryContext";
 function CategoryItem(props: CategoryItem) {
     const titleBlock = React.useRef<HTMLDivElement>(null);
     const { data, updateData } = React.useContext(DataContext)!;
-    const { categoryInfo,updateCategoryInfo } = React.useContext(CategoryContext)!;
+    const { categoryInfo, updateCategoryInfo } =
+        React.useContext(CategoryContext)!;
 
     const colors = {
         paleBlue: "#97BBE5",
@@ -27,9 +28,9 @@ function CategoryItem(props: CategoryItem) {
         updateData({ type: "updateData/deleteCategory" }, props);
     }
 
-    function selectCategoryBlock(e: HTMLDivElement) {
+    function selectCategoryBlock() {
         updateCategoryInfo(props.title);
-        updateData({type : "updateData/updateActiveCategory"}, props, null);
+        updateData({ type: "updateData/updateActiveCategory" }, props, null);
         /**
          * TODO: make visible the selected category
          */
@@ -222,10 +223,6 @@ export default function Categories() {
                 {data.length !== 0 && (
                     <ul className={styles.categoriesMenu}>
                         {data!.map((item: ExpensesObject, index: number) => {
-                            /**
-                             * Fix this issue, for some reason is undefined
-                             */
-
                             return (
                                 <CategoryItem
                                     key={index}
