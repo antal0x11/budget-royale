@@ -2,6 +2,7 @@ import styles from "@/styles/new-expense-form.module.css";
 import { NewExpense } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
 import DataContext from "./DataContext";
+import CategoryContext from "./CategoryContext";
 import UserNotification from "@/lib/UserNotification";
 
 enum NotificationType {
@@ -31,6 +32,7 @@ export default function NewExpense(props: NewExpense) {
     const costRef = React.useRef<HTMLInputElement>(null);
 
     const { updateData } = React.useContext(DataContext)!;
+    const { categoryInfo } = React.useContext(CategoryContext)!;
 
     /*
         TODO: 
@@ -56,6 +58,15 @@ export default function NewExpense(props: NewExpense) {
     };
 
     function handleSubmit() {
+
+        if (categoryInfo.length === 0) {
+            setNotification({
+                msg: "You have to select a Category.",
+                type: "notificationType/info"
+            })
+            return;
+        }
+
         if (title.length === 0) {
             setNotification({
                 msg: "Title field is empty!",

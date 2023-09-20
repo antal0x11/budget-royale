@@ -64,11 +64,11 @@ export default function Expenses() {
           data.map((element) => {
             if (element.category.title === newCat?.title) {
               setDisplayData(element.items);
-                setCategoryInfo(newCat?.title);
-                return {
-                  ...element,
-                  category: { ...element.category, active: true },
-                };
+              setCategoryInfo(newCat?.title);
+              return {
+                ...element,
+                category: { ...element.category, active: true },
+              };
             } else {
               return {
                 ...element,
