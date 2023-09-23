@@ -5,15 +5,11 @@ interface Props {
     updateAddExpense: () => void;
 }
 
-/**
- * TODO: FIX: display of cost for float cost
- */
-
 export default function MainSubTitle(props: Props) {
     return (
         <div className={styles.container}>
             <span className={styles.smallScreensAddblock}>
-                <div>Total Money Spent: {props.totalCost}$</div>
+                <div>Total Money Spent: {props.totalCost.toFixed(2)}$</div>
                 <div>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
