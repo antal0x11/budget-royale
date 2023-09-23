@@ -3,7 +3,7 @@ import { ExpensesCardProps } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
 import DataContext from "./DataContext";
 
-const bin: ReactElement = (
+const bin = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"

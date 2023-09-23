@@ -8,7 +8,7 @@ import {
 import * as React from "react";
 import DataContext from "./DataContext";
 import CategoryContext from "./CategoryContext";
-import Link from "next/Link";
+import Link from "next/link";
 
 function CategoryItem(props: CategoryItem) {
     const titleBlock = React.useRef<HTMLDivElement>(null);

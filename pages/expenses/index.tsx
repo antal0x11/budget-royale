@@ -1,4 +1,4 @@
-import Head from "next/Head";
+import Head from "next/head";
 
 import TopTitle from "@/lib/TopTitle";
 import ExpensesCard from "@/lib/ExpensesCard";
@@ -164,7 +164,6 @@ export default function Expenses() {
                           title={element.title}
                           cost={element.cost}
                           date={element.date}
-                          comments={element.comments}
                         />
                       </div>
                     );

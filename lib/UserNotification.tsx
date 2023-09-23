@@ -1,13 +1,24 @@
 import * as React from "react";
 import styles from "@/styles/user-notification.module.css";
 
+enum NotificationType {
+    info = "notificationType/info",
+    error = "notificationType/error",
+    none = "notificationType/none",
+}
+
+type AddExpenseNotification = {
+    msg: string;
+    type: NotificationType;
+};
+
 interface Props {
 	msg: string;
 	notificationType: string;
-	closeNotification : () => void;
+	closeNotification : (obj : AddExpenseNotification) => void;
 };
 
-const closeIcon: ReactElement = (
+const closeIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -23,7 +34,7 @@ const closeIcon: ReactElement = (
 	</svg>
 );
 
-const errorIcon: ReactElement = (
+const errorIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -40,7 +51,7 @@ const errorIcon: ReactElement = (
 	</svg>
 );
 
-const infoIcon: ReactElement = (
+const infoIcon= (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		fill="none"
@@ -62,7 +73,7 @@ export default function UserNotification(props: Props) {
 	if (props.notificationType === "notificationType/none") return;
 
 	function handleCloseAction() {
-		props.closeNotification({msg: "", type: "notificationType/none"})
+		props.closeNotification({msg: "", type: NotificationType.none})
 	}
 
 	return (

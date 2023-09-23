@@ -1,6 +1,6 @@
-import Link from "next/Link";
-import Head from "next/Head";
-import Image from "next/Image";
+import Link from "next/link";
+import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "@/styles/intro.module.css";
 

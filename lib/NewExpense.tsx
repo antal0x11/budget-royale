@@ -51,18 +51,12 @@ export default function NewExpense(props: NewExpense) {
         setCost(e.target.value);
     };
 
-    const handleCommentsChange = (
-        e: React.ChangeEvent<HTMLTextAreaElement>,
-    ) => {
-        setComments(e.target.value);
-    };
-
     function handleSubmit() {
 
         if (categoryInfo.length === 0) {
             setNotification({
                 msg: "You have to select a Category.",
-                type: "notificationType/info"
+                type: NotificationType.info
             })
             return;
         }
@@ -70,7 +64,7 @@ export default function NewExpense(props: NewExpense) {
         if (title.length === 0) {
             setNotification({
                 msg: "Title field is empty!",
-                type: "notificationType/info",
+                type: NotificationType.info
             });
             titleRef.current!.value = "";
             return;
@@ -79,7 +73,7 @@ export default function NewExpense(props: NewExpense) {
         if (date.length === 0) {
             setNotification({
                 msg: "Date field is not selected!",
-                type: "notificationType/info",
+                type: NotificationType.info
             });
             dateRef.current!.value = "";
             return;
@@ -88,7 +82,7 @@ export default function NewExpense(props: NewExpense) {
         if (cost.length === 0) {
             setNotification({
                 msg: "Cost field is empty.",
-                type: "notificationType/info",
+                type: NotificationType.info
             });
             costRef.current!.value = "";
             return;
@@ -97,7 +91,7 @@ export default function NewExpense(props: NewExpense) {
         if (isNaN(Number(cost))) {
             setNotification({
                 msg: "Cost value is not a valid format.",
-                type: "notificationType/info",
+                type: NotificationType.info
             });
             costRef.current!.value = "";
             return;
@@ -113,6 +107,10 @@ export default function NewExpense(props: NewExpense) {
         titleRef.current!.value = "";
         dateRef.current!.value = "";
         costRef.current!.value = "";
+    }
+
+    function handleCloseNotification(obj : AddExpenseNotification) {
+        setNotification(obj);
     }
 
     return (
@@ -170,7 +168,7 @@ export default function NewExpense(props: NewExpense) {
                 <UserNotification
                     msg={notification.msg}
                     notificationType={notification.type}
-                    closeNotification={setNotification}
+                    closeNotification={handleCloseNotification}
                 />
             )}
         </>
