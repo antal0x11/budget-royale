@@ -19,7 +19,7 @@ type AddExpenseNotification = {
 export default function NewExpense(props: NewExpense) {
     const { updateAddExpense } = props.value;
     const [title, setTitle] = React.useState("");
-    const [date, setDate] = React.useState("");
+    const [date, setDate] = React.useState(new Date().toJSON().slice(0, 10));
     const [cost, setCost] = React.useState("");
     const [notification, setNotification] =
         React.useState<AddExpenseNotification>({
@@ -52,19 +52,18 @@ export default function NewExpense(props: NewExpense) {
     };
 
     function handleSubmit() {
-
         if (categoryInfo.length === 0) {
             setNotification({
                 msg: "You have to select a Category.",
-                type: NotificationType.info
-            })
+                type: NotificationType.info,
+            });
             return;
         }
 
         if (title.length === 0) {
             setNotification({
                 msg: "Title field is empty!",
-                type: NotificationType.info
+                type: NotificationType.info,
             });
             titleRef.current!.value = "";
             return;
@@ -73,7 +72,7 @@ export default function NewExpense(props: NewExpense) {
         if (date.length === 0) {
             setNotification({
                 msg: "Date field is not selected!",
-                type: NotificationType.info
+                type: NotificationType.info,
             });
             dateRef.current!.value = "";
             return;
@@ -82,7 +81,7 @@ export default function NewExpense(props: NewExpense) {
         if (cost.length === 0) {
             setNotification({
                 msg: "Cost field is empty.",
-                type: NotificationType.info
+                type: NotificationType.info,
             });
             costRef.current!.value = "";
             return;
@@ -91,25 +90,24 @@ export default function NewExpense(props: NewExpense) {
         if (isNaN(Number(cost))) {
             setNotification({
                 msg: "Cost value is not a valid format.",
-                type: NotificationType.info
+                type: NotificationType.info,
             });
             costRef.current!.value = "";
             return;
         }
-        
+
         updateData({ type: "updateData/addExpense" }, null, {
             title: title,
             date: date,
             cost: parseFloat(parseFloat(cost).toFixed(2)),
         });
-        
 
         titleRef.current!.value = "";
         dateRef.current!.value = "";
         costRef.current!.value = "";
     }
 
-    function handleCloseNotification(obj : AddExpenseNotification) {
+    function handleCloseNotification(obj: AddExpenseNotification) {
         setNotification(obj);
     }
 
@@ -130,11 +128,12 @@ export default function NewExpense(props: NewExpense) {
                 <label htmlFor={"date"}>Date: </label>
                 <input
                     ref={dateRef}
-                    className={styles.inputBoxN}
+                    className={styles.dateBox}
                     id={"date"}
                     type={"date"}
                     name={"selected-date"}
-                    placeholder={"Select day"}
+                    value={date}
+                    // placeholder={"Select day"}
                     onChange={handleDateChange}
                 />
 
@@ -150,12 +149,12 @@ export default function NewExpense(props: NewExpense) {
                 />
 
                 <div className={styles.btn}>
-                    <input
-                        className={styles.inputSubmit}
-                        type={"submit"}
-                        value={"Add Expense"}
+                    <button
+                        className={styles.addExpenseBtn}
                         onClick={handleSubmit}
-                    />
+                    >
+                        Add Expense
+                    </button>
                     <button
                         className={styles.cancelBtn}
                         onClick={() => updateAddExpense()}

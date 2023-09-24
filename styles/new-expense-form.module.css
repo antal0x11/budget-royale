@@ -25,7 +25,8 @@
 @keyframes createExpenseAnimation {
     from {
         opacity: 0%;
-    } to {
+    }
+    to {
         opacity: 100%;
     }
 }
@@ -36,12 +37,22 @@
     border-radius: 20px;
     margin: 5px;
     resize: none;
-    outline-color: #2E86c1;
-    border: 2px solid #2E86c1;
+    outline-color: #2e86c1;
+    border: 2px solid #2e86c1;
+}
+
+.dateBox {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    margin: 5px;
+    resize: none;
+    outline-color: #2e86c1;
+    border: 2px solid #2e86c1;
 }
 
 .inputBoxN:focus {
-    outline-color: #2E86c1;
+    outline-color: #2e86c1;
 }
 
 .btn {
@@ -52,20 +63,20 @@
     align-items: center;
 }
 
-.inputSubmit {
+.addExpenseBtn {
     justify-self: center;
     font-size: 18px;
     padding: 12px;
     text-align: center;
-    background-color: #3498DB;
+    background-color: #3498db;
     color: white;
     border-radius: 15px;
-    border: 2px solid #2980B9;
+    border: 2px solid #2980b9;
 }
 
-.inputSubmit:hover {
+.addExpenseBtn:hover {
     cursor: pointer;
-    background-color: #2980B9;
+    background-color: #2980b9;
     color: white;
 }
 
@@ -74,27 +85,27 @@
     font-size: 18px;
     padding: 12px;
     text-align: center;
-    background-color: #F1948A;
+    background-color: #f1948a;
     color: white;
     border-radius: 15px;
-    border: 2px solid #E74C3C;
+    border: 2px solid #e74c3c;
     width: 120px;
 }
 
 .cancelBtn:hover {
     cursor: pointer;
-    background-color: #E74C3C;
+    background-color: #e74c3c;
     color: white;
 }
 
 @media screen and (max-width: 844px) {
     .addItem {
         position: absolute;
-        top: 9.6vh;
-        right: 5vw;
+        top: 10.5vh;
+        right: 4vw;
         display: flex;
         flex-direction: column;
-        width: 320px;
+        width: 350px;
         height: fit-content;
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
@@ -102,9 +113,52 @@
         margin: 10px;
         color: black;
         background-color: white;
+        font-size: 22px;
         z-index: 100;
-    
+
         animation-name: createExpenseAnimation;
         animation-duration: 1s;
+    }
+
+    .addExpenseBtn {
+        justify-self: center;
+        font-size: 18px;
+        padding: 12px;
+        text-align: center;
+        background-color: #3498db;
+        color: white;
+        border-radius: 5px;
+        border: 2px solid #2980b9;
+    }
+
+
+    .dateBox {
+        width: 200px;
+        height: 40px;
+        font-size: 18px;
+        border-radius: 5px;
+        background-color: white;
+        border-color: #2980b9;
+    }
+
+    .inputBoxN {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 5px;
+        outline-color: #2e86c1;
+        border: 2px solid #2e86c1;
+    }
+
+    .cancelBtn {
+        justify-self: center;
+        font-size: 18px;
+        padding: 12px;
+        text-align: center;
+        background-color: #f1948a;
+        color: white;
+        border-radius: 5px;
+        border: 2px solid #e74c3c;
+        width: 120px;
     }
 }
