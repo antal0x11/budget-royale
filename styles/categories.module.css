@@ -30,7 +30,20 @@
     padding: 8px
 }
 
-.subContainer input {
+.textField {
+    margin-left: 10px;
+    height: fit-content;
+    width: 280px;
+}
+
+.Btn {
+    width: "120px";
+    height: "fit-content";
+    color: "black";
+    borderColor: "black";
+}
+
+/*.subContainer input {
     height: 23px;
     padding: 8px;
     width: 300px;
@@ -44,7 +57,7 @@
 
 .subContainer input:focus {
     outline-color: #2E86C1;
-}
+}*/
 
 .addCategory {
     height: fit-content;
@@ -213,7 +226,7 @@
         font-size: 30px;
     }
 
-    .subContainer input {
+    /*.subContainer input {
         height: 23px;
         padding: 8px;
         width: 300px;
@@ -221,9 +234,9 @@
         border: 2px solid #2E86C1;
         border-radius: 5px;
         margin-left: 34px;
-        /* margin-right: 4px; */
+        /* margin-right: 4px; 
         margin-bottom: 4px;
-    }
+    }*/
     
     .addCategory {
         height: fit-content;

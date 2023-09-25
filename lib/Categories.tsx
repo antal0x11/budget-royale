@@ -10,6 +10,8 @@ import DataContext from "./DataContext";
 import CategoryContext from "./CategoryContext";
 import Link from "next/link";
 
+import { Button, TextField, Alert } from "@mui/material";
+
 function CategoryItem(props: CategoryItem) {
     const titleBlock = React.useRef<HTMLDivElement>(null);
     const { data, updateData } = React.useContext(DataContext)!;
@@ -141,7 +143,6 @@ function notificationReducer(
 export default function Categories() {
     const defaultColor: string = "#97BBE5";
     const [currentInput, setCurrentInput] = React.useState<string>("");
-    const inputElement = React.useRef<HTMLInputElement>(null);
     const [notificationState, dispatchNotification] = React.useReducer(
         notificationReducer,
         { msg: "none", display: false },
@@ -186,8 +187,6 @@ export default function Categories() {
             },
             null,
         );
-
-        inputElement.current!.value = "";
         setCurrentInput("");
     }
 
@@ -208,28 +207,27 @@ export default function Categories() {
             </div>
             <div className={styles.catTitle}>Categories</div>
             <div className={styles.subContainer}>
-                <input
-                    ref={inputElement}
-                    type={"text"}
-                    placeholder={"Add New Category"}
+                <TextField
+                    label={"Category"}
+                    variant={"standard"}
+                    helperText={"Create a new Category"}
+                    value={currentInput}
                     onInput={handleInput}
+                    className={styles.textField}
                 />
-                <button
-                    className={styles.addCategory}
+                <Button
+                    variant="outlined"
                     onClick={handleAddCategoryItem}
+                    style={addCategoryBtn}
                 >
-                    Add Category
-                </button>
-                {categoryInfo.length !== 0 && (
-                    <div className={styles.selectedCategoryBlock}>
-                        <p>{categoryInfo}</p>
-                    </div>
-                )}
-                {notificationState.display && (
-                    <div className={styles.notificationContainer}>
-                        <p>{notificationState.msg}</p>
-                    </div>
-                )}
+                    Add
+                </Button>
+                {categoryInfo.length !== 0 &&
+                    <Alert severity={"error"} onClose={ () => dispatchNotification({ type : "off"}) }>categoryInfo</Alert>
+                }
+                {notificationState.display &&
+                    <Alert severity={"error"} onClose={ () => dispatchNotification({ type : "off"})}>{notificationState.msg}</Alert>
+                }
                 {data.length !== 0 && (
                     <ul className={styles.categoriesMenu}>
                         {data!.map((item: ExpensesObject, index: number) => {
@@ -247,4 +245,13 @@ export default function Categories() {
             </div>
         </div>
     );
+}
+
+const addCategoryBtn = {
+    marginTop: "12px",
+    marginLeft: "10px",
+    width: "120px",
+    height: "fit-content",
+    color: "black",
+    borderColor: "black"
 }

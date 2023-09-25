@@ -12,7 +12,7 @@ your expenses. You create categories of them
 and set higher priorities to the important ones. 
 
 Budget Royale is free and does not track your 
-activity. So what are you waiting for? Let's start.
+activity. So what are you waiting for?
 `;
 
 // interface ButtonProps {
