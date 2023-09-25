@@ -19,6 +19,9 @@ import {
     ListItemText,
     ListItemIcon,
     IconButton,
+    Stack,
+    Switch,
+    FormControlLabel
 } from "@mui/material";
 import LabelImportantOutlinedIcon from "@mui/icons-material/LabelImportantOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -226,28 +229,7 @@ export default function Categories() {
 
     return (
         <div className={styles.container}>
-            <div>
-                <Link href="/" className={styles.backHome}>
-                    Home
-                </Link>
-            </div>
-            <div className={styles.catTitle}>Categories</div>
             <div className={styles.subContainer}>
-                <TextField
-                    label={"Category"}
-                    variant={"standard"}
-                    helperText={"Create a new Category"}
-                    value={currentInput}
-                    onInput={handleInput}
-                    className={styles.textField}
-                />
-                <Button
-                    variant="outlined"
-                    onClick={handleAddCategoryItem}
-                    style={addCategoryBtn}
-                >
-                    Add
-                </Button>
                 {notificationState.display && (
                     <Alert
                         severity={"error"}
@@ -256,7 +238,39 @@ export default function Categories() {
                         {notificationState.msg}
                     </Alert>
                 )}
-                {data.length !== 0 && (
+                <Stack direction={"column"} justifyContent={"center"} alignItems={"flex-start"}>
+                    <TextField
+                        label={"Category"}
+                        variant={"standard"}
+                        helperText={"Create a new Category"}
+                        value={currentInput}
+                        onInput={handleInput}
+                        className={styles.textField}
+                    />
+
+                    <FormControlLabel
+                        label={"Add Multiple Categories"}
+                        control={<Switch color={"primary"} />}
+                        labelPlacement={"start"}
+                    />
+                </Stack>    
+                <Stack direction={"row"}>
+                    <Button
+                        variant="outlined"
+                        onClick={handleAddCategoryItem}
+                        style={addCategoryBtn}
+                    >
+                        Add
+                    </Button>
+
+                    <Button
+                        variant="outlined"
+                        style={addCategoryBtn}
+                    >
+                        Cancel
+                    </Button>
+                </Stack>
+                {/*{data.length !== 0 && (
                     <List component={"nav"}>
                         {data!.map((item: ExpensesObject, index: number) => {
                             return (
@@ -308,7 +322,7 @@ export default function Categories() {
                     //         );
                     //     })}
                     // </ul>
-                )}
+                )}*/}
             </div>
         </div>
     );

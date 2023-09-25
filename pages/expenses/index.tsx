@@ -1,5 +1,5 @@
 import Head from "next/head";
-
+import Link from "next/link";
 import TopTitle from "@/lib/TopTitle";
 import ExpensesCard from "@/lib/ExpensesCard";
 import NewExpense from "@/lib/NewExpense";
@@ -17,6 +17,23 @@ import {
   ExpensesCardProps,
   ActionOptions,
 } from "@/lib/ComponentTypes/ExpensesTypes";
+import {
+  Stack,
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  IconButton,
+  AppBar,
+  Toolbar,
+  Select,
+  MenuItem,
+  Button,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import MenuIcon from "@mui/icons-material/Menu";
+import AddIcon from "@mui/icons-material/Add";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 export default function Expenses() {
   const [addExpense, setAddExpense] = React.useState<boolean>(false);
@@ -24,6 +41,7 @@ export default function Expenses() {
   const [displayData, setDisplayData] = React.useState<ExpensesCardProps[]>([]);
   const [totalCost, setTotalCost] = React.useState<number>(0);
   const [categoryInfo, setCategoryInfo] = React.useState<string>("");
+  const [displayCategoriesBox, setDisplayCategoriesBox] = React.useState(false);
 
   function updateData(
     action: ActionOptions,
@@ -137,7 +155,137 @@ export default function Expenses() {
       <TopTitle />
       <CategoryContext.Provider value={{ categoryInfo, updateCategoryInfo }}>
         <DataContext.Provider value={{ data, updateData }}>
-          <div className={styles.container}>
+          <Box sx={{ flexGrow: 1 }}>
+            <AppBar component={"nav"} position={"static"}>
+              <Toolbar style={{ backgroundColor: "white" }}>
+                <Link
+                  href="/"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <Typography
+                    variant={"h7"}
+                    component={"div"}
+                    sx={{ flexGrow: 1 }}
+                  >
+                    Home
+                  </Typography>
+                </Link>
+
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setDisplayCategoriesBox((prev) => !prev);
+                  }}
+                  style={{
+                    marginTop: "12px",
+                    marginLeft: "10px",
+                    width: "120px",
+                    height: "fit-content",
+                    color: "black",
+                    borderColor: "black",
+                    border: "0px solid black",
+                    textTransform: "inherit",
+                    fontSize: "18px",
+                    marginBottom: "12px",
+                  }}
+                >
+                  Category
+                </Button>
+
+                <Button
+                  style={{
+                    marginTop: "12px",
+                    marginLeft: "10px",
+                    width: "120px",
+                    height: "fit-content",
+                    color: "black",
+                    borderColor: "black",
+                    border: "0px solid black",
+                    textTransform: "inherit",
+                    fontSize: "18px",
+                    marginBottom: "12px",
+                  }}
+                >
+                  Expense
+                </Button>
+              </Toolbar>
+            </AppBar>
+          </Box>
+
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Typography
+              variant={"h6"}
+              component={"div"}
+              sx={{ flexGrow: 1 }}
+              style={{ marginLeft: "20px", marginTop: "10px" }}
+            >
+              Total Cost : 0 $
+            </Typography>
+            <Typography
+              variant={"h6"}
+              component={"div"}
+              sx={{ flexGrow: 1 }}
+              style={{ marginLeft: "20px", marginTop: "10px" }}
+            >
+              Category Cost : 0 $
+            </Typography>
+          </Stack>
+
+          <Stack
+            direction={"row"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Typography
+              variant={"h6"}
+              component={"div"}
+              sx={{ flexGrow: 1 }}
+              style={{ marginLeft: "20px" }}
+            >
+              Books
+            </Typography>
+
+            <Select
+              variant={"filled"}
+              label={"Select Category"}
+              style={{
+                width: "200px",
+                backgroundColor: "white",
+                marginBottom: "10px",
+                marginRight: "20px"
+              }}
+              value={"Select Category"}
+            >
+              <MenuItem value={"Select Category"}>Select Category</MenuItem>
+              <MenuItem value={"Books"}>Books</MenuItem>
+              <MenuItem value={"Games"}>Games</MenuItem>
+              <MenuItem value={"Elements"}>Elements</MenuItem>
+            </Select>
+          </Stack>
+
+          {displayCategoriesBox && (
+            <Box style={{ width: "fit-content", height: "fit-content" }}>
+              <Categories />
+            </Box>
+          )}
+
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            <Box>
+              <T />
+              <T />
+              <T />
+            </Box>
+          </Stack>
+
+          {/*<div className={styles.container}>
             <div className={styles.mainContainerItemsLeft}>
               <Categories />
             </div>
@@ -170,9 +318,110 @@ export default function Expenses() {
                   })}
               </div>
             </div>
-          </div>
+          </div>*/}
         </DataContext.Provider>
       </CategoryContext.Provider>
     </>
+  );
+}
+
+function T() {
+  return (
+    <Box style={{ width: "fit-content", marginLeft: "10px" }}>
+      <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 1, sm: 2, md: 4 }}
+          mt={2}
+        >
+          <Card
+            style={{
+              border: "2px solid black",
+              width: "350px",
+              backgroundColor: "pink",
+            }}
+          >
+            <CardContent>
+              <Typography
+                gutterbottom={"true"}
+                variant={"h6"}
+                component={"div"}
+              >
+                Harry Potter and the philosopher stone
+              </Typography>
+              <Typography variant={"h5"} component={"div"}>
+                18 $
+              </Typography>
+              <Stack direction={"row"}>
+                <Typography
+                  variant={"body2"}
+                  color={"text.secondary"}
+                  style={{ marginTop: "12px" }}
+                >
+                  23/09/2023
+                </Typography>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </Stack>
+            </CardContent>
+          </Card>
+
+          <Card style={{ border: "2px solid black", width: "350px" }}>
+            <CardContent>
+              <Typography
+                gutterbottom={"true"}
+                variant={"h6"}
+                component={"div"}
+              >
+                Harry Potter and the philosopher stone
+              </Typography>
+              <Typography variant={"h5"} component={"div"}>
+                18 $
+              </Typography>
+              <Stack direction={"row"}>
+                <Typography
+                  variant={"body2"}
+                  color={"text.secondary"}
+                  style={{ marginTop: "12px" }}
+                >
+                  23/09/2023
+                </Typography>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </Stack>
+            </CardContent>
+          </Card>
+
+          <Card style={{ border: "2px solid black", width: "350px" }}>
+            <CardContent>
+              <Typography
+                gutterbottom={"true"}
+                variant={"h6"}
+                component={"div"}
+              >
+                Harry Potter and the philosopher stone
+              </Typography>
+              <Typography variant={"h5"} component={"div"}>
+                18 $
+              </Typography>
+              <Stack direction={"row"}>
+                <Typography
+                  variant={"body2"}
+                  color={"text.secondary"}
+                  style={{ marginTop: "12px" }}
+                >
+                  23/09/2023
+                </Typography>
+                <IconButton aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Stack>
+      </Stack>
+    </Box>
   );
 }
