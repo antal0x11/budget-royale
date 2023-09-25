@@ -51,7 +51,7 @@ export default function Expenses() {
         setData(
           data.filter((element) => element.category.title !== newCat!.title),
         );
-        setCategoryInfo("");
+        setCategoryInfo(categoryInfo === newCat!.title ? "" : categoryInfo);
         setDisplayData([]);
         break;
 

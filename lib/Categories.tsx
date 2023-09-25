@@ -9,8 +9,19 @@ import * as React from "react";
 import DataContext from "./DataContext";
 import CategoryContext from "./CategoryContext";
 import Link from "next/link";
-
-import { Button, TextField, Alert } from "@mui/material";
+import {
+    Button,
+    TextField,
+    Alert,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    ListItemIcon,
+    IconButton,
+} from "@mui/material";
+import LabelImportantOutlinedIcon from "@mui/icons-material/LabelImportantOutlined";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function CategoryItem(props: CategoryItem) {
     const titleBlock = React.useRef<HTMLDivElement>(null);
@@ -151,6 +162,14 @@ export default function Categories() {
     const { categoryInfo, updateCategoryInfo } =
         React.useContext(CategoryContext)!;
 
+    function handleSelectedBlock(
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        key: number,
+        category: string,
+    ): void {
+        updateCategoryInfo(category);
+    }
+
     function handleAddCategoryItem() {
         if (currentInput.length === 0 || currentInput === " ") {
             dispatchNotification({ type: "notification/empty" });
@@ -198,6 +217,13 @@ export default function Categories() {
         setCurrentInput(e.target.value);
     }
 
+    function handleDeleteItem(
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+        itemToDelete: CategoryItem,
+    ): void {
+        updateData({ type: "updateData/deleteCategory" }, itemToDelete.category);
+    }
+
     return (
         <div className={styles.container}>
             <div>
@@ -222,25 +248,66 @@ export default function Categories() {
                 >
                     Add
                 </Button>
-                {categoryInfo.length !== 0 &&
-                    <Alert severity={"error"} onClose={ () => dispatchNotification({ type : "off"}) }>categoryInfo</Alert>
-                }
-                {notificationState.display &&
-                    <Alert severity={"error"} onClose={ () => dispatchNotification({ type : "off"})}>{notificationState.msg}</Alert>
-                }
+                {notificationState.display && (
+                    <Alert
+                        severity={"error"}
+                        onClose={() => dispatchNotification({ type: "off" })}
+                    >
+                        {notificationState.msg}
+                    </Alert>
+                )}
                 {data.length !== 0 && (
-                    <ul className={styles.categoriesMenu}>
+                    <List component={"nav"}>
                         {data!.map((item: ExpensesObject, index: number) => {
                             return (
-                                <CategoryItem
-                                    key={index}
-                                    title={item.category.title}
-                                    color={item.category.color}
-                                    active={item.category.active}
-                                />
+                                <ListItem key={index}>
+                                    <ListItemButton
+                                        key={index}
+                                        selected={item.category.title === categoryInfo}
+                                        onClick={(event, key, category) =>
+                                            handleSelectedBlock(
+                                                event,
+                                                index,
+                                                item.category.title,
+                                            )
+                                        }
+                                    >
+                                        <ListItemIcon>
+                                            {item.category.title === categoryInfo && (
+                                                <LabelImportantOutlinedIcon
+                                                    color={"info"}
+                                                />
+                                            )}
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={item.category.title}
+                                        />
+                                    </ListItemButton>
+                                    <IconButton
+                                        edge="end"
+                                        aria-label="delete"
+                                        onClick={(event, itemToDelete) =>
+                                            handleDeleteItem(event, item)
+                                        }
+                                    >
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </ListItem>
                             );
                         })}
-                    </ul>
+                    </List>
+                    // <ul className={styles.categoriesMenu}>
+                    //     {data!.map((item: ExpensesObject, index: number) => {
+                    //         return (
+                    //             <CategoryItem
+                    //                 key={index}
+                    //                 title={item.category.title}
+                    //                 color={item.category.color}
+                    //                 active={item.category.active}
+                    //             />
+                    //         );
+                    //     })}
+                    // </ul>
                 )}
             </div>
         </div>
@@ -253,5 +320,5 @@ const addCategoryBtn = {
     width: "120px",
     height: "fit-content",
     color: "black",
-    borderColor: "black"
-}
+    borderColor: "black",
+};

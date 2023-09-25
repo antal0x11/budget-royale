@@ -24,9 +24,9 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 30px;
-    text-shadow: 2px 2px 2px gray;
+/*    text-shadow: 2px 2px 2px gray;*/
     padding: 8px
 }
 
