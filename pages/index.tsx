@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import styles from "@/styles/intro.module.css";
+import { Button } from "@mui/material";
 
 const information = `
 Budget Royale is a utility app that helps you 
@@ -14,24 +15,32 @@ Budget Royale is free and does not track your
 activity. So what are you waiting for? Let's start.
 `;
 
-interface ButtonProps {
-	displayTag: string;
-	action: () => void;
-}
+// interface ButtonProps {
+// 	displayTag: string;
+// 	action: () => void;
+// }
 
-function Button(props: ButtonProps) {
-	return (
-		<>
-			<button
-				name={"Button"}
-				className={styles.btnLinkApp}
-				onClick={props.action}
-			>
-				{props.displayTag}
-			</button>
-		</>
-	);
-}
+// function Button(props: ButtonProps) {
+// 	return (
+// 		<>
+// 			<button
+// 				name={"Button"}
+// 				className={styles.btnLinkApp}
+// 				onClick={props.action}
+// 			>
+// 				{props.displayTag}
+// 			</button>
+// 		</>
+// 	);
+// }
+
+const ButtonStyle = {
+	textTransform: "inherit",
+	color: "white",
+	borderColor: "white",
+	marginRight: "10px",
+	fontSize: "18px"
+};
 
 /**
  *  Home is the component for the landing page.
@@ -59,7 +68,16 @@ export default function Home() {
 					<pre>{information}</pre>
 				</section>
 				<section className={styles.bottomSection}>
-					<Button displayTag={"Go To App"} action={action} />
+					{/*<Button displayTag={"Go To App"} action={action} />*/}
+
+					<Button
+						variant={"outlined"}
+						color={"primary"}
+						style={ButtonStyle}
+						onClick={action}
+					>
+						Let's Start
+					</Button>
 
 					<Link href={"https://github.com/antal0x11/my-expenses"}>
 						<Image
