@@ -16,8 +16,12 @@ type AddExpenseNotification = {
     type: NotificationType;
 };
 
-export default function NewExpense(props: NewExpense) {
-    const { updateAddExpense } = props.value;
+interface Props {
+    closeNewExpenseForm : () => void
+}
+
+export default function NewExpense(props : Props) {
+    // const { updateAddExpense } = props.value;
     const [title, setTitle] = React.useState("");
     const [date, setDate] = React.useState(new Date().toJSON().slice(0, 10));
     const [cost, setCost] = React.useState("");
@@ -157,7 +161,7 @@ export default function NewExpense(props: NewExpense) {
                     </button>
                     <button
                         className={styles.cancelBtn}
-                        onClick={() => updateAddExpense()}
+                        onClick={() => props.closeNewExpenseForm()}
                     >
                         Cancel
                     </button>

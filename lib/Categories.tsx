@@ -135,6 +135,8 @@ export default function Categories(props: Props) {
         setCurrentInput(e.target.value);
     }
 
+    //TODO handle delete Category
+
     // function handleDeleteItem(
     //     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     //     itemToDelete: CategoryItem,
@@ -150,7 +152,8 @@ export default function Categories(props: Props) {
             <div className={styles.subContainer}>
                 {notificationState.display && (
                     <Alert
-                        severity={notificationState.severity}
+                        variant={"outlined"}
+                        severity={notificationState.severity === "success" ? "success" : "error"}
                         onClose={() => dispatchNotification({ type: "off" })}
                     >
                         {notificationState.msg}

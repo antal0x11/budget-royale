@@ -44,9 +44,14 @@ export default function Expenses() {
   const [categoryInfo, setCategoryInfo] =
     React.useState<string>("Select Category");
   const [displayCategoriesBox, setDisplayCategoriesBox] = React.useState(false);
+  const [displayNewExpenseForm,setDisplayNewExpenseForm] = React.useState(false);
 
   function closeCategoryComponent() {
-    setDisplayCategoriesBox(prev => !prev);
+    setDisplayCategoriesBox((prev : boolean) => !prev);
+  }
+
+  function closeNewExpenseForm() {
+    setDisplayNewExpenseForm((prev : boolean) => !prev);
   }
 
   function updateData(
@@ -180,7 +185,7 @@ export default function Expenses() {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    setDisplayCategoriesBox((prev) => !prev);
+                    setDisplayCategoriesBox((prev : boolean) => !prev);
                   }}
                   style={{
                     marginTop: "12px",
@@ -211,6 +216,7 @@ export default function Expenses() {
                     fontSize: "18px",
                     marginBottom: "12px",
                   }}
+                  onClick={ () => setDisplayNewExpenseForm((prev : boolean) => !prev)}
                 >
                   Expense
                 </Button>
@@ -282,6 +288,11 @@ export default function Expenses() {
           {displayCategoriesBox && (
             <Box style={{ width: "fit-content", height: "fit-content" }}>
               <Categories closeCategoryComponent={closeCategoryComponent}/>
+            </Box>
+          )}
+          {displayNewExpenseForm && (
+            <Box style={{ width: "fit-content", height: "fit-content" }}>
+              <NewExpense closeNewExpenseForm={closeNewExpenseForm}/>
             </Box>
           )}
 
