@@ -246,9 +246,9 @@ export default function Expenses() {
               variant={"h6"}
               component={"div"}
               sx={{ flexGrow: 1 }}
-              style={{ marginLeft: "20px" }}
+              style={{ marginLeft: "20px"}}
             >
-              Books
+              {categoryInfo !== "Select Category" ? categoryInfo : ""}
             </Typography>
 
             <Select
