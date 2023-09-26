@@ -26,7 +26,6 @@ import {
 import LabelImportantOutlinedIcon from "@mui/icons-material/LabelImportantOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 function notificationReducer(
     state: Notification,
     action: ActionOptions,
@@ -36,29 +35,28 @@ function notificationReducer(
             return {
                 msg: "Category Input field is empty!",
                 display: true,
-                severity: "error"
+                severity: "error",
             };
         case "notification/duplicate":
             return {
                 msg: "A record with the same category already exists.",
                 display: true,
-                severity: "error"
+                severity: "error",
             };
 
         case "notification/success":
             return {
                 msg: "New Category Added successfully.",
                 display: true,
-                severity: "success"
+                severity: "success",
             };
         default:
             return { ...state, display: false };
     }
 }
 
-
 interface Props {
-    closeCategoryComponent : () => void;
+    closeCategoryComponent: () => void;
 }
 
 export default function Categories(props: Props) {
@@ -71,6 +69,8 @@ export default function Categories(props: Props) {
     const { data, updateData } = React.useContext(DataContext)!;
     const { categoryInfo, updateCategoryInfo } =
         React.useContext(CategoryContext)!;
+    const [addMultipleCategorySwitch, setAddMultipleCategorySwitch] =
+        React.useState<boolean>(false);
 
     function handleSelectedBlock(
         event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -117,8 +117,14 @@ export default function Categories(props: Props) {
             null,
         );
 
-        dispatchNotification({type: "notification/success"})
-        setCurrentInput("");
+        if (addMultipleCategorySwitch) {
+            dispatchNotification({ type: "notification/success" });
+            setCurrentInput("");
+        } else {
+            setCurrentInput("");
+            props.closeCategoryComponent();
+        }
+        
     }
 
     function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
@@ -166,7 +172,16 @@ export default function Categories(props: Props) {
 
                     <FormControlLabel
                         label={"Add Multiple Categories"}
-                        control={<Switch color={"primary"} />}
+                        control={
+                            <Switch
+                                color={"primary"}
+                                onChange={() =>
+                                    setAddMultipleCategorySwitch(
+                                        (prev : boolean) => !prev
+                                    )
+                                }
+                            />
+                        }
                         labelPlacement={"start"}
                     />
                 </Stack>
@@ -181,7 +196,7 @@ export default function Categories(props: Props) {
                             height: "fit-content",
                             color: "black",
                             borderColor: "black",
-                            textTransform: "inherit"
+                            textTransform: "inherit",
                         }}
                     >
                         Add
@@ -196,7 +211,7 @@ export default function Categories(props: Props) {
                             height: "fit-content",
                             color: "black",
                             borderColor: "black",
-                            textTransform: "inherit"
+                            textTransform: "inherit",
                         }}
                         onClick={() => props.closeCategoryComponent()}
                     >
@@ -260,8 +275,6 @@ export default function Categories(props: Props) {
         </div>
     );
 }
-
-
 
 // function CategoryItem(props: CategoryItem) {
 //     const titleBlock = React.useRef<HTMLDivElement>(null);
@@ -370,4 +383,3 @@ export default function Categories(props: Props) {
 //         </li>
 //     );
 // }
-
