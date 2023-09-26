@@ -23,6 +23,7 @@ export interface NewExpense {
 export interface Notification {
 	msg : string;
 	display : boolean;
+	severity: string
 }
 
 export interface ActionOptions {

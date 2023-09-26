@@ -36,11 +36,20 @@ function notificationReducer(
             return {
                 msg: "Category Input field is empty!",
                 display: true,
+                severity: "error"
             };
         case "notification/duplicate":
             return {
                 msg: "A record with the same category already exists.",
                 display: true,
+                severity: "error"
+            };
+
+        case "notification/success":
+            return {
+                msg: "New Category Added successfully.",
+                display: true,
+                severity: "success"
             };
         default:
             return { ...state, display: false };
@@ -48,12 +57,16 @@ function notificationReducer(
 }
 
 
-export default function Categories() {
+interface Props {
+    closeCategoryComponent : () => void;
+}
+
+export default function Categories(props: Props) {
     const defaultColor: string = "#97BBE5";
     const [currentInput, setCurrentInput] = React.useState<string>("");
     const [notificationState, dispatchNotification] = React.useReducer(
         notificationReducer,
-        { msg: "none", display: false },
+        { msg: "none", display: false, severity: "success" },
     );
     const { data, updateData } = React.useContext(DataContext)!;
     const { categoryInfo, updateCategoryInfo } =
@@ -104,11 +117,7 @@ export default function Categories() {
             null,
         );
 
-        /**
-         * TODO: add alert that category has been added successfully
-         */ 
-
-
+        dispatchNotification({type: "notification/success"})
         setCurrentInput("");
     }
 
@@ -135,7 +144,7 @@ export default function Categories() {
             <div className={styles.subContainer}>
                 {notificationState.display && (
                     <Alert
-                        severity={"error"}
+                        severity={notificationState.severity}
                         onClose={() => dispatchNotification({ type: "off" })}
                     >
                         {notificationState.msg}
@@ -189,6 +198,7 @@ export default function Categories() {
                             borderColor: "black",
                             textTransform: "inherit"
                         }}
+                        onClick={() => props.closeCategoryComponent()}
                     >
                         Cancel
                     </Button>

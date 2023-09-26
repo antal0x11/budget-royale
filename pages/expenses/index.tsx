@@ -45,6 +45,10 @@ export default function Expenses() {
     React.useState<string>("Select Category");
   const [displayCategoriesBox, setDisplayCategoriesBox] = React.useState(false);
 
+  function closeCategoryComponent() {
+    setDisplayCategoriesBox(prev => !prev);
+  }
+
   function updateData(
     action: ActionOptions,
     newCat?: CategoryItem | null,
@@ -277,7 +281,7 @@ export default function Expenses() {
 
           {displayCategoriesBox && (
             <Box style={{ width: "fit-content", height: "fit-content" }}>
-              <Categories />
+              <Categories closeCategoryComponent={closeCategoryComponent}/>
             </Box>
           )}
 
