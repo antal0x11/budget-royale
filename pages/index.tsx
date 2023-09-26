@@ -35,7 +35,6 @@ activity. So what are you waiting for?
 // }
 
 const ButtonStyle = {
-	textTransform: "inherit",
 	color: "white",
 	borderColor: "white",
 	marginRight: "10px",
@@ -76,7 +75,7 @@ export default function Home() {
 						style={ButtonStyle}
 						onClick={action}
 					>
-						Let's Start
+						{"Let's Start"}
 					</Button>
 
 					<Link href={"https://github.com/antal0x11/my-expenses"}>

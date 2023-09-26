@@ -29,6 +29,7 @@ import {
   Select,
   MenuItem,
   Button,
+  SelectChangeEvent
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -40,7 +41,8 @@ export default function Expenses() {
   const [data, setData] = React.useState<ExpensesObject[]>([]);
   const [displayData, setDisplayData] = React.useState<ExpensesCardProps[]>([]);
   const [totalCost, setTotalCost] = React.useState<number>(0);
-  const [categoryInfo, setCategoryInfo] = React.useState<string>("");
+  const [categoryInfo, setCategoryInfo] =
+    React.useState<string>("Select Category");
   const [displayCategoriesBox, setDisplayCategoriesBox] = React.useState(false);
 
   function updateData(
@@ -163,7 +165,7 @@ export default function Expenses() {
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Typography
-                    variant={"h7"}
+                    variant={"h6"}
                     component={"div"}
                     sx={{ flexGrow: 1 }}
                   >
@@ -256,14 +258,20 @@ export default function Expenses() {
                 width: "200px",
                 backgroundColor: "white",
                 marginBottom: "10px",
-                marginRight: "20px"
+                marginRight: "20px",
               }}
-              value={"Select Category"}
+              value={categoryInfo}
+              onChange={(event: SelectChangeEvent<string>) => setCategoryInfo(event.target.value)}
             >
               <MenuItem value={"Select Category"}>Select Category</MenuItem>
-              <MenuItem value={"Books"}>Books</MenuItem>
-              <MenuItem value={"Games"}>Games</MenuItem>
-              <MenuItem value={"Elements"}>Elements</MenuItem>
+              {data.length !== 0 &&
+                data.map((item: ExpensesObject, index: number) => {
+                  return (
+                    <MenuItem key={index} value={item.category.title}>
+                      {item.category.title}
+                    </MenuItem>
+                  );
+                })}
             </Select>
           </Stack>
 
@@ -343,7 +351,7 @@ function T() {
           >
             <CardContent>
               <Typography
-                gutterbottom={"true"}
+                gutterBottom={true}
                 variant={"h6"}
                 component={"div"}
               >
@@ -370,7 +378,7 @@ function T() {
           <Card style={{ border: "2px solid black", width: "350px" }}>
             <CardContent>
               <Typography
-                gutterbottom={"true"}
+                gutterBottom={true}
                 variant={"h6"}
                 component={"div"}
               >
@@ -397,7 +405,7 @@ function T() {
           <Card style={{ border: "2px solid black", width: "350px" }}>
             <CardContent>
               <Typography
-                gutterbottom={"true"}
+                gutterBottom={true}
                 variant={"h6"}
                 component={"div"}
               >
