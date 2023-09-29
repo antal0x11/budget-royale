@@ -1,11 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import TopTitle from "@/lib/TopTitle";
-import ExpensesCard from "@/lib/ExpensesCard";
 import NewExpense from "@/lib/NewExpense";
-
-import styles from "@/styles/home.module.css";
-import MainSubTitle from "@/lib/MainSubTitle";
 import Categories from "@/lib/Categories";
 
 import * as React from "react";
@@ -32,9 +28,6 @@ import {
   SelectChangeEvent
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MenuIcon from "@mui/icons-material/Menu";
-import AddIcon from "@mui/icons-material/Add";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 
 export default function Expenses() {
   const [addExpense, setAddExpense] = React.useState<boolean>(false);
@@ -107,7 +100,7 @@ export default function Expenses() {
       case "updateData/addExpense":
         setData(
           data.map((element) => {
-            if (element.category.active === true) {
+            if (element.category.title === categoryInfo) {
               /**
                * Increase total cost when adding an item.
                */
@@ -225,8 +218,8 @@ export default function Expenses() {
           </Box>
 
           <Stack
-            direction={"row"}
-            alignItems={"center"}
+            direction={{ xs: "column", sm: "row" }}
+            alignItems={{xs : "flex-start" , sm: "center"}}
             justifyContent={"center"}
           >
             <Typography

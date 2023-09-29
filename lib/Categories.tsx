@@ -1,30 +1,19 @@
 import styles from "@/styles/categories.module.css";
-import { CategoryItem } from "./ComponentTypes/ExpensesTypes";
 import {
     Notification,
-    ActionOptions,
-    ExpensesObject,
+    ActionOptions
 } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
 import DataContext from "./DataContext";
 import CategoryContext from "./CategoryContext";
-import Link from "next/link";
 import {
     Button,
     TextField,
     Alert,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemText,
-    ListItemIcon,
-    IconButton,
     Stack,
     Switch,
     FormControlLabel,
 } from "@mui/material";
-import LabelImportantOutlinedIcon from "@mui/icons-material/LabelImportantOutlined";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 function notificationReducer(
     state: Notification,

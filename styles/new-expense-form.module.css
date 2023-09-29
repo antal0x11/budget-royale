@@ -4,7 +4,7 @@
 
 .addItem {
     position: absolute;
-    top: 10.6vh;
+    top: 17vh;
     right: 40vw;
     display: flex;
     flex-direction: column;
@@ -102,7 +102,7 @@
     .addItem {
         position: absolute;
         top: 10.5vh;
-        right: 4vw;
+        right: 0vw;
         display: flex;
         flex-direction: column;
         width: 350px;
