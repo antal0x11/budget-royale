@@ -7,8 +7,8 @@ export interface ExpensesCardProps {
 
 export interface CategoryItem {
 	title: string;
-	color: string;
-	active: boolean;
+	// color: string;
+	// active: boolean;
 }
 
 export interface ExpenseValue {
@@ -23,6 +23,7 @@ export interface NewExpense {
 export interface Notification {
 	msg : string;
 	display : boolean;
+	severity: string
 }
 
 export interface ActionOptions {

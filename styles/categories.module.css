@@ -5,12 +5,13 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 460px;
-    height: 350px;
+    width: fit-content;
+    height: 120px;
     /* border: 2px solid black;
     border-radius: 5px; */
-    margin-top: 0;
-    margin-left: 0;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 100px;
 }
 
 .container h2 {
@@ -24,13 +25,26 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    font-weight: 400;
+    font-weight: 300;
     font-size: 30px;
-    text-shadow: 2px 2px 2px gray;
+/*    text-shadow: 2px 2px 2px gray;*/
     padding: 8px
 }
 
-.subContainer input {
+.textField {
+    margin-left: 10px;
+    height: fit-content;
+    width: 280px;
+}
+
+.Btn {
+    width: "120px";
+    height: "fit-content";
+    color: "black";
+    borderColor: "black";
+}
+
+/*.subContainer input {
     height: 23px;
     padding: 8px;
     width: 300px;
@@ -44,7 +58,7 @@
 
 .subContainer input:focus {
     outline-color: #2E86C1;
-}
+}*/
 
 .addCategory {
     height: fit-content;
@@ -213,7 +227,7 @@
         font-size: 30px;
     }
 
-    .subContainer input {
+    /*.subContainer input {
         height: 23px;
         padding: 8px;
         width: 300px;
@@ -221,9 +235,9 @@
         border: 2px solid #2E86C1;
         border-radius: 5px;
         margin-left: 34px;
-        /* margin-right: 4px; */
+        /* margin-right: 4px; 
         margin-bottom: 4px;
-    }
+    }*/
     
     .addCategory {
         height: fit-content;
