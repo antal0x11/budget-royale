@@ -25,7 +25,8 @@ import {
   Select,
   MenuItem,
   Button,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Grid,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -37,14 +38,16 @@ export default function Expenses() {
   const [categoryInfo, setCategoryInfo] =
     React.useState<string>("Select Category");
   const [displayCategoriesBox, setDisplayCategoriesBox] = React.useState(false);
-  const [displayNewExpenseForm,setDisplayNewExpenseForm] = React.useState(false);
+  const [displayNewExpenseForm, setDisplayNewExpenseForm] =
+    React.useState(false);
+  const [categoryCost, setCategoryCost] = React.useState<number>(0);
 
   function closeCategoryComponent() {
-    setDisplayCategoriesBox((prev : boolean) => !prev);
+    setDisplayCategoriesBox((prev: boolean) => !prev);
   }
 
   function closeNewExpenseForm() {
-    setDisplayNewExpenseForm((prev : boolean) => !prev);
+    setDisplayNewExpenseForm((prev: boolean) => !prev);
   }
 
   function updateData(
@@ -118,7 +121,7 @@ export default function Expenses() {
       case "updateData/deleteExpense":
         setData(
           data.map((element) => {
-            if (element.category.active === true) {
+            if (element.category.title === categoryInfo) {
               setDisplayData(
                 element.items.filter((it) => it.title !== newCard!.title),
               );
@@ -151,6 +154,22 @@ export default function Expenses() {
     setCategoryInfo(selectedCategory);
   }
 
+  function handleChangeSelectedCategory(event: SelectChangeEvent<string>) {
+    setCategoryInfo(event.target.value);
+    let tmp : ExpensesCardProps [] = [];
+    for (let item of data) {
+      if (item.category.title === event.target.value) {
+        tmp = item.items;
+      }
+    }
+    let sumCategory = 0;
+    tmp.forEach((item) => {
+      sumCategory += item.cost;
+    });
+    setCategoryCost(sumCategory);
+    setDisplayData(tmp);
+  }
+
   return (
     <>
       <Head>
@@ -178,7 +197,7 @@ export default function Expenses() {
                 <Button
                   variant="outlined"
                   onClick={() => {
-                    setDisplayCategoriesBox((prev : boolean) => !prev);
+                    setDisplayCategoriesBox((prev: boolean) => !prev);
                   }}
                   style={{
                     marginTop: "12px",
@@ -209,7 +228,9 @@ export default function Expenses() {
                     fontSize: "18px",
                     marginBottom: "12px",
                   }}
-                  onClick={ () => setDisplayNewExpenseForm((prev : boolean) => !prev)}
+                  onClick={() =>
+                    setDisplayNewExpenseForm((prev: boolean) => !prev)
+                  }
                 >
                   Expense
                 </Button>
@@ -219,7 +240,7 @@ export default function Expenses() {
 
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            alignItems={{xs : "flex-start" , sm: "center"}}
+            alignItems={{ xs: "flex-start", sm: "center" }}
             justifyContent={"center"}
           >
             <Typography
@@ -228,7 +249,7 @@ export default function Expenses() {
               sx={{ flexGrow: 1 }}
               style={{ marginLeft: "20px", marginTop: "10px" }}
             >
-              Total Cost : 0 $
+              Total Cost : {totalCost.toFixed(2)} $
             </Typography>
             <Typography
               variant={"h6"}
@@ -236,7 +257,7 @@ export default function Expenses() {
               sx={{ flexGrow: 1 }}
               style={{ marginLeft: "20px", marginTop: "10px" }}
             >
-              Category Cost : 0 $
+              Category Cost : {categoryCost.toFixed(2)} $
             </Typography>
           </Stack>
 
@@ -249,7 +270,7 @@ export default function Expenses() {
               variant={"h6"}
               component={"div"}
               sx={{ flexGrow: 1 }}
-              style={{ marginLeft: "20px"}}
+              style={{ marginLeft: "20px" }}
             >
               {categoryInfo !== "Select Category" ? categoryInfo : ""}
             </Typography>
@@ -264,7 +285,7 @@ export default function Expenses() {
                 marginRight: "20px",
               }}
               value={categoryInfo}
-              onChange={(event: SelectChangeEvent<string>) => setCategoryInfo(event.target.value)}
+              onChange={handleChangeSelectedCategory}
             >
               <MenuItem value={"Select Category"}>Select Category</MenuItem>
               {data.length !== 0 &&
@@ -280,164 +301,67 @@ export default function Expenses() {
 
           {displayCategoriesBox && (
             <Box style={{ width: "fit-content", height: "fit-content" }}>
-              <Categories closeCategoryComponent={closeCategoryComponent}/>
+              <Categories closeCategoryComponent={closeCategoryComponent} />
             </Box>
           )}
           {displayNewExpenseForm && (
             <Box style={{ width: "fit-content", height: "fit-content" }}>
-              <NewExpense closeNewExpenseForm={closeNewExpenseForm}/>
+              <NewExpense closeNewExpenseForm={closeNewExpenseForm} />
             </Box>
           )}
-
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent={"center"}
-            alignItems={"center"}
-          >
-            <Box>
-              <T />
-              <T />
-              <T />
-            </Box>
-          </Stack>
-
-          {/*<div className={styles.container}>
-            <div className={styles.mainContainerItemsLeft}>
-              <Categories />
-            </div>
-            <div className={styles.mainContainerItemsRight}>
-              <div className={styles.infoContainer}>
-                <div className={styles.infoContainerItemMain}>
-                  <MainSubTitle
-                    totalCost={totalCost}
-                    updateAddExpense={updateAddExpense}
-                  />
-                </div>
-                {addExpense && (
-                  <div>
-                    <NewExpense value={{ addExpense, updateAddExpense }} />
-                  </div>
-                )}
-              </div>
-              <div className={styles.cardContainer}>
-                {displayData.length !== 0 &&
-                  displayData.map((element, index) => {
-                    return (
-                      <div key={index} className={styles.cardContainerItem}>
-                        <ExpensesCard
-                          title={element.title}
-                          cost={element.cost}
-                          date={element.date}
-                        />
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-          </div>*/}
+          <Grid container spacing={1} style={{marginLeft: "15px"}}>
+            {displayData.length !== 0 &&
+              displayData.map((element: ExpensesCardProps, index: number) => {
+                return (
+                  <Grid item xs={12} sm={4} key={index}>
+                    <Card
+                      style={{
+                        border: "2px solid black",
+                        width: "350px",
+                        backgroundColor: "pink",
+                      }}
+                    >
+                      <CardContent>
+                        <Typography
+                          gutterBottom={true}
+                          variant={"h6"}
+                          component={"div"}
+                        >
+                          {element.title}
+                        </Typography>
+                        <Typography variant={"h5"} component={"div"}>
+                          {element.cost} $
+                        </Typography>
+                        <Stack direction={"row"}>
+                          <Typography
+                            variant={"body2"}
+                            color={"text.secondary"}
+                            style={{ marginTop: "12px" }}
+                          >
+                            {element.date}
+                          </Typography>
+                          <IconButton
+                            aria-label="delete"
+                            onClick={() =>
+                              updateData(
+                                { type: "updateData/deleteExpense" },
+                                null,
+                                element,
+                              )
+                            }
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Stack>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                );
+              })}
+          </Grid>
         </DataContext.Provider>
       </CategoryContext.Provider>
     </>
   );
 }
 
-function T() {
-  return (
-    <Box style={{ width: "fit-content", marginLeft: "10px" }}>
-      <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={{ xs: 1, sm: 2, md: 4 }}
-          mt={2}
-        >
-          <Card
-            style={{
-              border: "2px solid black",
-              width: "350px",
-              backgroundColor: "pink",
-            }}
-          >
-            <CardContent>
-              <Typography
-                gutterBottom={true}
-                variant={"h6"}
-                component={"div"}
-              >
-                Harry Potter and the philosopher stone
-              </Typography>
-              <Typography variant={"h5"} component={"div"}>
-                18 $
-              </Typography>
-              <Stack direction={"row"}>
-                <Typography
-                  variant={"body2"}
-                  color={"text.secondary"}
-                  style={{ marginTop: "12px" }}
-                >
-                  23/09/2023
-                </Typography>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </Stack>
-            </CardContent>
-          </Card>
-
-          <Card style={{ border: "2px solid black", width: "350px" }}>
-            <CardContent>
-              <Typography
-                gutterBottom={true}
-                variant={"h6"}
-                component={"div"}
-              >
-                Harry Potter and the philosopher stone
-              </Typography>
-              <Typography variant={"h5"} component={"div"}>
-                18 $
-              </Typography>
-              <Stack direction={"row"}>
-                <Typography
-                  variant={"body2"}
-                  color={"text.secondary"}
-                  style={{ marginTop: "12px" }}
-                >
-                  23/09/2023
-                </Typography>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </Stack>
-            </CardContent>
-          </Card>
-
-          <Card style={{ border: "2px solid black", width: "350px" }}>
-            <CardContent>
-              <Typography
-                gutterBottom={true}
-                variant={"h6"}
-                component={"div"}
-              >
-                Harry Potter and the philosopher stone
-              </Typography>
-              <Typography variant={"h5"} component={"div"}>
-                18 $
-              </Typography>
-              <Stack direction={"row"}>
-                <Typography
-                  variant={"body2"}
-                  color={"text.secondary"}
-                  style={{ marginTop: "12px" }}
-                >
-                  23/09/2023
-                </Typography>
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </Stack>
-            </CardContent>
-          </Card>
-        </Stack>
-      </Stack>
-    </Box>
-  );
-}

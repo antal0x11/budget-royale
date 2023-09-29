@@ -176,55 +176,6 @@ export default function NewExpense(props: Props) {
                         </Button>
                     </Stack>
                 </Stack>
-
-                {/* <label htmlFor={"title"}>Title: </label>
-                <input
-                    ref={titleRef}
-                    className={styles.inputBoxN}
-                    id={"title"}
-                    type={"text"}
-                    name={"title"}
-                    placeholder={"Name your expense"}
-                    onChange={handleTitleChange}
-                />
-
-                <label htmlFor={"date"}>Date: </label>
-                <input
-                    ref={dateRef}
-                    className={styles.dateBox}
-                    id={"date"}
-                    type={"date"}
-                    name={"selected-date"}
-                    value={date}
-                    // placeholder={"Select day"}
-                    onChange={handleDateChange}
-                />
-
-                <label htmlFor={"cost"}>Cost: </label>
-                <input
-                    ref={costRef}
-                    className={styles.inputBoxN}
-                    id={"cost"}
-                    type={"cost"}
-                    name={"cost"}
-                    placeholder={"Price $"}
-                    onChange={handleCostChange}
-                />
-
-                <div className={styles.btn}>
-                    <button
-                        className={styles.addExpenseBtn}
-                        onClick={handleSubmit}
-                    >
-                        Add Expense
-                    </button>
-                    <button
-                        className={styles.cancelBtn}
-                        onClick={() => props.closeNewExpenseForm()}
-                    >
-                        Cancel
-                    </button>
-                </div>*/}
             </div>
             {notification.type !== NotificationType.none && (
                 <UserNotification
