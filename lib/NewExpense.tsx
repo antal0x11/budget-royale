@@ -3,13 +3,13 @@ import { NewExpense } from "./ComponentTypes/ExpensesTypes";
 import * as React from "react";
 import DataContext from "./DataContext";
 import CategoryContext from "./CategoryContext";
-import UserNotification from "@/lib/UserNotification";
 import {
     TextField,
     Stack,
     Button,
     Switch,
     FormControlLabel,
+    Alert
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -32,7 +32,6 @@ interface Props {
 }
 
 export default function NewExpense(props: Props) {
-    // const { updateAddExpense } = props.value;
     const [title, setTitle] = React.useState("");
     const [date, setDate] = React.useState<dayjs.Dayjs | null>(
         dayjs(new Date().toJSON().slice(0, 10)),
@@ -43,24 +42,15 @@ export default function NewExpense(props: Props) {
             msg: "",
             type: NotificationType.none,
         });
-
-    const titleRef = React.useRef<HTMLInputElement>(null);
-    const dateRef = React.useRef<HTMLInputElement>(null);
-    const costRef = React.useRef<HTMLInputElement>(null);
-
+    const [multipleExpenses,setMultipleExpenses] = React.useState<boolean>(false);
     const { updateData } = React.useContext(DataContext)!;
     const { categoryInfo } = React.useContext(CategoryContext)!;
 
-    /*
-        TODO: 
-            - add colors to DOM when fields have errors
-    */
-
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
         setTitle(e.target.value);
     };
 
-    const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) : void => {
         setCost(e.target.value);
     };
 
@@ -76,7 +66,7 @@ export default function NewExpense(props: Props) {
         if (title.length === 0) {
             setNotification({
                 msg: "Title field is empty!",
-                type: NotificationType.info,
+                type: NotificationType.error,
             });
             return;
         }
@@ -84,7 +74,7 @@ export default function NewExpense(props: Props) {
         if (cost.length === 0) {
             setNotification({
                 msg: "Cost field is empty.",
-                type: NotificationType.info,
+                type: NotificationType.error,
             });
             return;
         }
@@ -92,7 +82,7 @@ export default function NewExpense(props: Props) {
         if (isNaN(Number(cost))) {
             setNotification({
                 msg: "Cost value is not a valid format.",
-                type: NotificationType.info,
+                type: NotificationType.error,
             });
             return;
         }
@@ -102,10 +92,20 @@ export default function NewExpense(props: Props) {
             date: date!.format("DD/MM/YYYY"),
             cost: parseFloat(parseFloat(cost).toFixed(2)),
         });
+
+        setNotification({msg: "", type: NotificationType.none});
+
+        if (!multipleExpenses) {
+            props.closeNewExpenseForm();
+        }
     }
 
-    function handleCloseNotification(obj: AddExpenseNotification) {
+    function handleCloseNotification(obj: AddExpenseNotification) :void {
         setNotification(obj);
+    }
+
+    function handleMultipleExpenses() : void {
+        setMultipleExpenses( prevState => !prevState);
     }
 
     return (
@@ -133,7 +133,7 @@ export default function NewExpense(props: Props) {
                     >
                         <FormControlLabel
                             label={"Add Multiple Expenses"}
-                            control={<Switch color={"primary"} />}
+                            control={<Switch color={"primary"} onChange={handleMultipleExpenses}/>}
                             labelPlacement={"start"}
                         />
                     </Stack>
@@ -177,13 +177,18 @@ export default function NewExpense(props: Props) {
                     </Stack>
                 </Stack>
             </div>
-            {notification.type !== NotificationType.none && (
-                <UserNotification
-                    msg={notification.msg}
-                    notificationType={notification.type}
-                    closeNotification={handleCloseNotification}
-                />
-            )}
+            {notification.type !== NotificationType.none && 
+                <div className={styles.container}>
+                    <Alert
+                        style={{fontSize: "20px"}}
+                        variant={"filled"}
+                        severity={notification.type === "notificationType/info" ?  "info" : "error"}
+                        onClose={() => setNotification({msg: "", type: NotificationType.none})}
+                    >
+                        {notification.msg}
+                    </Alert>
+                </div>
+            }
         </>
     );
 }
