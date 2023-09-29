@@ -76,28 +76,9 @@ export default function Expenses() {
         setData(
           data.filter((element) => element.category.title !== newCat!.title),
         );
-        setCategoryInfo(categoryInfo === newCat!.title ? "" : categoryInfo);
+        setCategoryInfo(categoryInfo === newCat!.title ? "Select Category" : categoryInfo);
+        setCategoryCost(0);
         setDisplayData([]);
-        break;
-
-      case "updateData/updateActiveCategory":
-        setData(
-          data.map((element) => {
-            if (element.category.title === newCat?.title) {
-              setDisplayData(element.items);
-              setCategoryInfo(newCat?.title);
-              return {
-                ...element,
-                category: { ...element.category, active: true },
-              };
-            } else {
-              return {
-                ...element,
-                category: { ...element.category, active: false },
-              };
-            }
-          }),
-        );
         break;
 
       case "updateData/addExpense":
@@ -116,6 +97,7 @@ export default function Expenses() {
             }
           }),
         );
+        setCategoryCost(prev => prev + newCard!.cost);
         break;
 
       case "updateData/deleteExpense":
@@ -130,6 +112,7 @@ export default function Expenses() {
                * Reduce total cost when deleting an item.
                */
               setTotalCost(totalCost - newCard!.cost);
+              setCategoryCost(prev => prev - newCard!.cost)
 
               return {
                 ...element,
@@ -166,6 +149,7 @@ export default function Expenses() {
     tmp.forEach((item) => {
       sumCategory += item.cost;
     });
+    console.log(sumCategory);
     setCategoryCost(sumCategory);
     setDisplayData(tmp);
   }
@@ -249,7 +233,7 @@ export default function Expenses() {
               sx={{ flexGrow: 1 }}
               style={{ marginLeft: "20px", marginTop: "10px" }}
             >
-              Total Cost : {totalCost.toFixed(2)} $
+              Total Cost : {totalCost <= 0 ? 0 : totalCost.toFixed(2)} $
             </Typography>
             <Typography
               variant={"h6"}
@@ -257,7 +241,7 @@ export default function Expenses() {
               sx={{ flexGrow: 1 }}
               style={{ marginLeft: "20px", marginTop: "10px" }}
             >
-              Category Cost : {categoryCost.toFixed(2)} $
+              Category Cost : {categoryCost <= 0 ? 0 : categoryCost.toFixed(2)} $
             </Typography>
           </Stack>
 
@@ -297,6 +281,28 @@ export default function Expenses() {
                   );
                 })}
             </Select>
+
+            {
+              categoryInfo !== "Select Category" &&
+              <Button
+                  style={{
+                    marginTop: "12px",
+                    marginLeft: "10px",
+                    width: "fit-content",
+                    height: "fit-content",
+                    color: "black",                
+                    textTransform: "inherit",
+                    fontSize: "18px",
+                    marginBottom: "12px",
+                    marginRight: "10px",
+                    borderColor: "red"
+                  }}
+                  variant={"outlined"}
+                  onClick={() => updateData({type: "updateData/deleteCategory"},{title: categoryInfo}, null)}
+                >
+                  Clear
+                </Button>
+            }
           </Stack>
 
           {displayCategoriesBox && (
